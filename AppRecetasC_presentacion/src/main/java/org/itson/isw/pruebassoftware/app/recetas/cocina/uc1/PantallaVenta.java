@@ -1,4 +1,4 @@
-package org.itson.diseñosoftware.farmaciagi.interfaces;
+package org.itson.isw.pruebassoftware.app.recetas.cocina.uc1;
 
 import java.awt.Color;
 import java.util.GregorianCalendar;
@@ -9,29 +9,15 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import org.itson.disenosoftware.farmaciagi_dtos.ProductoDTO;
-import org.itson.disenosoftware.farmaciagi_dtos.PromocionDTO;
-import org.itson.disenosoftware.farmaciagi_dtos.VentaDTO;
-import org.itson.disenosoftware.farmaciagi_subsistema_productos.GestorProductos;
-import org.itson.disenosoftware.farmaciagi_subsistema_productos.IGestorProductos;
-import org.itson.disenosoftware.farmaciagi_subsistema_productos.excepciones.GestorProductosException;
-import org.itson.disenosoftware.farmaciagi_subsistema_promociones.GestorPromociones;
-import org.itson.disenosoftware.farmaciagi_subsistema_promociones.IGestorPromociones;
+
+
 
 public class PantallaVenta extends javax.swing.JFrame {
 
     private Float total;
-    private IGestorProductos gestorInventario;
-    private IGestorPromociones gestorPromociones;
-    private List<ProductoDTO> productosVenta;
-    private List<PromocionDTO> promocionesVenta;
 
     public PantallaVenta() {
         initComponents();
-        this.gestorInventario = new GestorProductos();
-        this.gestorPromociones = new GestorPromociones();
-        this.productosVenta = new LinkedList<>();
-        this.promocionesVenta = new LinkedList<>();
         this.total = 0.0F;
         btnBuscarProducto.setBackground(Color.WHITE);
         btnContinuar.setBackground(Color.WHITE);
@@ -46,8 +32,7 @@ public class PantallaVenta extends javax.swing.JFrame {
     }
 
     public void limpiarVenta() {
-        productosVenta.clear();
-        promocionesVenta.clear();
+
     }
 
     /**
@@ -92,7 +77,6 @@ public class PantallaVenta extends javax.swing.JFrame {
 
         btnProductos.setBackground(new java.awt.Color(166, 164, 255));
         btnProductos.setForeground(new java.awt.Color(166, 164, 255));
-        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prouctos1.png"))); // NOI18N
         btnProductos.setBorderPainted(false);
         btnProductos.setFocusPainted(false);
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +101,6 @@ public class PantallaVenta extends javax.swing.JFrame {
         jPanel3.setRequestFocusEnabled(false);
 
         btnComprarProductos.setBackground(new java.awt.Color(166, 164, 255));
-        btnComprarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icono_carrito.png"))); // NOI18N
         btnComprarProductos.setBorderPainted(false);
         btnComprarProductos.setFocusPainted(false);
         btnComprarProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -142,7 +125,6 @@ public class PantallaVenta extends javax.swing.JFrame {
         jPanel5.setRequestFocusEnabled(false);
 
         btnProveedores.setBackground(new java.awt.Color(166, 164, 255));
-        btnProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proveedor.png"))); // NOI18N
         btnProveedores.setBorder(null);
         btnProveedores.setFocusPainted(false);
         btnProveedores.addActionListener(new java.awt.event.ActionListener() {
@@ -167,7 +149,6 @@ public class PantallaVenta extends javax.swing.JFrame {
         jPanel6.setRequestFocusEnabled(false);
 
         btnVenta.setBackground(new java.awt.Color(216, 215, 255));
-        btnVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenVenta.png"))); // NOI18N
         btnVenta.setBorder(null);
         btnVenta.setFocusPainted(false);
         btnVenta.addActionListener(new java.awt.event.ActionListener() {
@@ -220,7 +201,6 @@ public class PantallaVenta extends javax.swing.JFrame {
         txtTotal.setDisabledTextColor(new java.awt.Color(255, 255, 255));
 
         btnBuscarProducto.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnBuscarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lupa.png"))); // NOI18N
         btnBuscarProducto.setText(" | BUSCAR PRODUCTO");
         btnBuscarProducto.setFocusPainted(false);
         btnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -265,7 +245,6 @@ public class PantallaVenta extends javax.swing.JFrame {
         jPanel4.setRequestFocusEnabled(false);
 
         btnPromociones.setBackground(new java.awt.Color(166, 164, 255));
-        btnPromociones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tagIcon.png"))); // NOI18N
         btnPromociones.setBorderPainted(false);
         btnPromociones.setFocusPainted(false);
         btnPromociones.addActionListener(new java.awt.event.ActionListener() {
@@ -350,7 +329,7 @@ public class PantallaVenta extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         pack();
@@ -358,229 +337,131 @@ public class PantallaVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
-        DlgBuscarProducto busquedaProducto = new DlgBuscarProducto(this, true, productosVenta, promocionesVenta);
-        busquedaProducto.setVisible(true);
-        llenarTablaProductosVenta();
-        llenarTablaPromociones();
-        establecerTotal();
+
+
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        if (!productosVenta.isEmpty()) {
-            VentaDTO venta = new VentaDTO("VNT-001", productosVenta, promocionesVenta, total, new GregorianCalendar());
-            DlgTipoPago pago = new DlgTipoPago(this, true, venta);
-            pago.setVisible(true);
-            limpiarVenta();
-            llenarTablaProductosVenta();
-            llenarTablaPromociones();
-            establecerTotal();
-        } else {
-            JOptionPane.showMessageDialog(this, "Asegúrese de agregar productos a la venta.",
-                    "Venta vacía", JOptionPane.INFORMATION_MESSAGE);
-        }
+
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
-        dispose();
-        DlgProveedores proveedores = new DlgProveedores(this, true);
-        proveedores.setVisible(true);
+
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "Ya te encuentras en esta ventana");
+       
     }//GEN-LAST:event_btnVentaActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        dispose();
-        DlgProductosPrincipal menuProductos = new DlgProductosPrincipal(this, true);
-        menuProductos.setVisible(true);
+        
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnPromocionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromocionesActionPerformed
-        dispose();
-        DlgPromociones pPromociones = new DlgPromociones(this, true);
-        pPromociones.setVisible(true);
-        llenarTablaPromociones();
+        
     }//GEN-LAST:event_btnPromocionesActionPerformed
 
     private void btnComprarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarProductosActionPerformed
-        dispose();
-        DlgComprarProductos productosPrincipal = new DlgComprarProductos();
-        productosPrincipal.setVisible(true);
+        
     }//GEN-LAST:event_btnComprarProductosActionPerformed
 
     //Métodos 
     private void llenarTablaProductosVenta() {
-        DefaultTableModel modelo = new DefaultTableModel();
-
-        modelo.addColumn("ARTICULO");
-        modelo.addColumn("");
-        modelo.addColumn("CANTIDAD");
-        modelo.addColumn("");
-        modelo.addColumn("IMPORTE UNITARIO");
-
-        if (!productosVenta.isEmpty()) {
-            for (ProductoDTO producto : productosVenta) {
-                Object[] fila = {
-                    producto.getNombre(),
-                    "-",
-                    producto.getCantidad(),
-                    "+",
-                    producto.getCosto()
-                };
-                modelo.addRow(fila);
-            }
-        }
-
-        tblProductosVenta.setModel(modelo);
-        TableColumnModel columnModel = tblProductosVenta.getColumnModel();
-
-        ButtonColumn botonRestar = new ButtonColumn("-", (e) -> {
-            int fila = tblProductosVenta.convertRowIndexToModel(tblProductosVenta.getSelectedRow());
-            ProductoDTO productoVenta = null;
-
-            try {
-                productoVenta = productosVenta.get(fila);
-                int cantidad = productoVenta.getCantidad();
-                productoVenta.setCantidad(productoVenta.getCantidad() - 1);
-
-                if (productoVenta.getCantidad() == 0) {
-                    ProductoDTO productoActual = gestorInventario.obtenerProducto(productoVenta);
-                    productoActual.setCantidad(1);
-                    gestorInventario.modCantidadProducto(productoActual);
-                    productosVenta.remove(productoVenta);
-
-                } else {
-                    ProductoDTO productoActual = gestorInventario.obtenerProducto(productoVenta);
-                    productoActual.setCantidad(1);
-                    gestorInventario.modCantidadProducto(productoActual);
-                    productoVenta.setCantidad(cantidad - 1);
-                    productosVenta.set(productosVenta.indexOf(productoVenta), productoVenta);
-                }
-
-            } catch (GestorProductosException ex) {
-                JOptionPane.showMessageDialog(this, "No se pudo modificar la cantidad del producto.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                Logger.getLogger(PantallaVenta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            llenarTablaProductosVenta();
-            eliminarPromocion(productoVenta);
-            establecerTotal();
-        });
-        tblProductosVenta.getColumnModel().getColumn(1).setCellRenderer(botonRestar);
-        tblProductosVenta.getColumnModel().getColumn(1).setCellEditor(botonRestar);
-
-        ButtonColumn botonSumar = new ButtonColumn("+", (e) -> {
-            int fila = tblProductosVenta.convertRowIndexToModel(tblProductosVenta.getSelectedRow());
-            ProductoDTO productoAgregado = null;
-
-            try {
-                productoAgregado = productosVenta.get(fila);
-                Integer cantidadVentaAct = productoAgregado.getCantidad();
-                ProductoDTO productoInventario = gestorInventario.obtenerProducto(productoAgregado);
-
-                if (productoInventario.getCantidad() >= 1) {
-
-                    productoInventario.setCantidad(- 1);
-                    gestorInventario.modCantidadProducto(productoInventario);
-
-                    productoAgregado.setCantidad(cantidadVentaAct + 1);
-                    productosVenta.set(productosVenta.indexOf(productoAgregado), productoAgregado);
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "Cantidad del producto en inventario insuficiente.",
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (GestorProductosException ex) {
-                JOptionPane.showMessageDialog(this, "No se pudo modificar la cantidad del producto.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                Logger.getLogger(PantallaVenta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            llenarTablaProductosVenta();
-            agregarPromocion(productoAgregado);
-            establecerTotal();
-        });
-        tblProductosVenta.getColumnModel().getColumn(3).setCellRenderer(botonSumar);
-        tblProductosVenta.getColumnModel().getColumn(3).setCellEditor(botonSumar);
+//        DefaultTableModel modelo = new DefaultTableModel();
+//
+//        modelo.addColumn("ARTICULO");
+//        modelo.addColumn("");
+//        modelo.addColumn("CANTIDAD");
+//        modelo.addColumn("");
+//        modelo.addColumn("IMPORTE UNITARIO");
+//
+//        if (!productosVenta.isEmpty()) {
+//            for (ProductoDTO producto : productosVenta) {
+//                Object[] fila = {
+//                    producto.getNombre(),
+//                    "-",
+//                    producto.getCantidad(),
+//                    "+",
+//                    producto.getCosto()
+//                };
+//                modelo.addRow(fila);
+//            }
+//        }
+//
+//        tblProductosVenta.setModel(modelo);
+//        TableColumnModel columnModel = tblProductosVenta.getColumnModel();
+//
+//        ButtonColumn botonRestar = new ButtonColumn("-", (e) -> {
+//            int fila = tblProductosVenta.convertRowIndexToModel(tblProductosVenta.getSelectedRow());
+//            ProductoDTO productoVenta = null;
+//
+//            try {
+//                productoVenta = productosVenta.get(fila);
+//                int cantidad = productoVenta.getCantidad();
+//                productoVenta.setCantidad(productoVenta.getCantidad() - 1);
+//
+//                if (productoVenta.getCantidad() == 0) {
+//                    ProductoDTO productoActual = gestorInventario.obtenerProducto(productoVenta);
+//                    productoActual.setCantidad(1);
+//                    gestorInventario.modCantidadProducto(productoActual);
+//                    productosVenta.remove(productoVenta);
+//
+//                } else {
+//                    ProductoDTO productoActual = gestorInventario.obtenerProducto(productoVenta);
+//                    productoActual.setCantidad(1);
+//                    gestorInventario.modCantidadProducto(productoActual);
+//                    productoVenta.setCantidad(cantidad - 1);
+//                    productosVenta.set(productosVenta.indexOf(productoVenta), productoVenta);
+//                }
+//
+//            } catch (GestorProductosException ex) {
+//                JOptionPane.showMessageDialog(this, "No se pudo modificar la cantidad del producto.",
+//                        "Error", JOptionPane.ERROR_MESSAGE);
+//                Logger.getLogger(PantallaVenta.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            llenarTablaProductosVenta();
+//            eliminarPromocion(productoVenta);
+//            establecerTotal();
+//        });
+//        tblProductosVenta.getColumnModel().getColumn(1).setCellRenderer(botonRestar);
+//        tblProductosVenta.getColumnModel().getColumn(1).setCellEditor(botonRestar);
+//
+//        ButtonColumn botonSumar = new ButtonColumn("+", (e) -> {
+//            int fila = tblProductosVenta.convertRowIndexToModel(tblProductosVenta.getSelectedRow());
+//            ProductoDTO productoAgregado = null;
+//
+//            try {
+//                productoAgregado = productosVenta.get(fila);
+//                Integer cantidadVentaAct = productoAgregado.getCantidad();
+//                ProductoDTO productoInventario = gestorInventario.obtenerProducto(productoAgregado);
+//
+//                if (productoInventario.getCantidad() >= 1) {
+//
+//                    productoInventario.setCantidad(- 1);
+//                    gestorInventario.modCantidadProducto(productoInventario);
+//
+//                    productoAgregado.setCantidad(cantidadVentaAct + 1);
+//                    productosVenta.set(productosVenta.indexOf(productoAgregado), productoAgregado);
+//
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Cantidad del producto en inventario insuficiente.",
+//                            "Error", JOptionPane.ERROR_MESSAGE);
+//                }
+//            } catch (GestorProductosException ex) {
+//                JOptionPane.showMessageDialog(this, "No se pudo modificar la cantidad del producto.",
+//                        "Error", JOptionPane.ERROR_MESSAGE);
+//                Logger.getLogger(PantallaVenta.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            llenarTablaProductosVenta();
+//            agregarPromocion(productoAgregado);
+//            establecerTotal();
+//        });
+//        tblProductosVenta.getColumnModel().getColumn(3).setCellRenderer(botonSumar);
+//        tblProductosVenta.getColumnModel().getColumn(3).setCellEditor(botonSumar);
     }
 
-    private void agregarPromocion(ProductoDTO productoAgregado) {
-        List<PromocionDTO> promocionesRegistro = gestorPromociones.obtenerPromociones();
-        for (PromocionDTO promocion : promocionesRegistro) {
-            if (productoAgregado.equals(promocion.getProducto())) {
-                if ((productoAgregado.getCantidad() % promocion.getCantidad()) == 0) {
-                    promocionesVenta.add(promocion);
-                }
-            }
-        }
-        llenarTablaPromociones();
-    }
+    
 
-    private void eliminarPromocion(ProductoDTO productoEliminado) {
-        if (productoEliminado != null) {
-            for (PromocionDTO promocion : promocionesVenta) {
-                if (promocion.getProducto().equals(productoEliminado)) {
-                    if (promocion.getCantidad() == 1) {
-                        promocionesVenta.remove(promocion);
-                        break;
-                    }
-                    if (productoEliminado.getCantidad() < promocion.getCantidad()) {
-                        promocionesVenta.remove(promocion);
-                        break;
-                    } else {
-                        float division = productoEliminado.getCantidad().floatValue() / promocion.getCantidad().floatValue();
-                        int parteEntera = (int) division;
-                        float parteDecimal = division - parteEntera;
-                        
-                        if (parteDecimal != 0 && promocionesVenta.subList(promocionesVenta.indexOf(promocion), promocionesVenta.lastIndexOf(promocion) + 1).toArray().length != parteEntera) {
-                            promocionesVenta.remove(promocion);
-                            break;
-                        }
-                    }
-                }
-            }
-            llenarTablaPromociones();
-        }
-    }
-
-    private void llenarTablaPromociones() {
-        DefaultTableModel modelo = new DefaultTableModel();
-
-        modelo.addColumn("PROMOCIONES");
-
-        if (!promocionesVenta.isEmpty()) {
-            for (PromocionDTO promocion : promocionesVenta) {
-                Object[] fila = {
-                    promocion.getDescripcion()
-                };
-                modelo.addRow(fila);
-            }
-        }
-
-        tblPromocionesVenta.setModel(modelo);
-        TableColumnModel columnModel = tblPromocionesVenta.getColumnModel();
-    }
-
-    private void establecerTotal() {
-        Float sumaTotal = 0.0F;
-        for (ProductoDTO producto : productosVenta) {
-            sumaTotal += producto.getCantidad() * producto.getCosto();
-            for (PromocionDTO promocion : promocionesVenta) {
-                if (promocion.getProducto().equals(producto)) {
-                    if ((producto.getCantidad() % promocion.getCantidad()) == 0) {
-                        sumaTotal -= producto.getCantidad() * producto.getCosto();
-                        sumaTotal += producto.getCantidad() * promocion.getPrecioUnitario();
-                    } else {
-                        int division = producto.getCantidad() / promocion.getCantidad();
-                        sumaTotal -= division * producto.getCosto();
-                    }
-                    break;
-                }
-            }
-        }
-        total = sumaTotal;
-        txtTotal.setText(total.toString());
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarProducto;

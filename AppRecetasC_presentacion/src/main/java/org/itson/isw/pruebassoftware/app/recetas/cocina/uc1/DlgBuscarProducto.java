@@ -1,4 +1,4 @@
-package org.itson.diseñosoftware.farmaciagi.interfaces;
+package org.itson.isw.pruebassoftware.app.recetas.cocina.uc1;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,27 +10,15 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import org.itson.disenosoftware.farmaciagi_dtos.ProductoDTO;
-import org.itson.disenosoftware.farmaciagi_dtos.PromocionDTO;
-import org.itson.disenosoftware.farmaciagi_subsistema_productos.GestorProductos;
-import org.itson.disenosoftware.farmaciagi_subsistema_productos.IGestorProductos;
-import org.itson.disenosoftware.farmaciagi_subsistema_productos.excepciones.GestorProductosException;
-import org.itson.disenosoftware.farmaciagi_subsistema_promociones.GestorPromociones;
-import org.itson.disenosoftware.farmaciagi_subsistema_promociones.IGestorPromociones;
+
 
 public class DlgBuscarProducto extends javax.swing.JDialog {
 
-    private IGestorProductos gestorInventario;
-    private IGestorPromociones gestorPromociones;
-    private List<ProductoDTO> productosVenta;
-    private List<PromocionDTO> promocionesVenta;
 
-    public DlgBuscarProducto(java.awt.Frame parent, boolean modal, List<ProductoDTO> productosVenta, List<PromocionDTO> promocionesVenta) {
+
+    public DlgBuscarProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.gestorInventario = new GestorProductos();
-        this.gestorPromociones = new GestorPromociones();
-        this.productosVenta = productosVenta;
-        this.promocionesVenta = promocionesVenta;
+        
         initComponents();
         btnCerrar.setBackground(Color.WHITE);
         btnBuscarProducto.setBackground(Color.WHITE);
@@ -79,7 +67,6 @@ public class DlgBuscarProducto extends javax.swing.JDialog {
         fondo.setPreferredSize(new java.awt.Dimension(800, 600));
 
         btnBuscarProducto.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        btnBuscarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lupa_pequeña.png"))); // NOI18N
         btnBuscarProducto.setText("| BUSCAR");
         btnBuscarProducto.setFocusPainted(false);
         btnBuscarProducto.setPreferredSize(new java.awt.Dimension(36, 36));
@@ -182,21 +169,21 @@ public class DlgBuscarProducto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
-        List<ProductoDTO> productosBuscados = new LinkedList<>();
+//        List<ProductoDTO> productosBuscados = new LinkedList<>();
         if (!txtBuscar.getText().isBlank()) {
 
-            productosBuscados = gestorInventario.buscarProductosPorNombre(txtBuscar.getText());
+//            productosBuscados = gestorInventario.buscarProductosPorNombre(txtBuscar.getText());
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Debes ingresar el nombre o clave del producto",
                     "Asegurate de no tener la casila vacía", JOptionPane.INFORMATION_MESSAGE);
         }
-        if (!productosBuscados.isEmpty()) {
-            llenarTabla(productosBuscados);
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "No hay productos en el inventario.",
-                    "Inventario vacío", JOptionPane.INFORMATION_MESSAGE);
-        }
+//        if (!productosBuscados.isEmpty()) {
+//            llenarTabla(productosBuscados);
+//        } else {
+//            JOptionPane.showMessageDialog(rootPane, "No hay productos en el inventario.",
+//                    "Inventario vacío", JOptionPane.INFORMATION_MESSAGE);
+//        }
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed

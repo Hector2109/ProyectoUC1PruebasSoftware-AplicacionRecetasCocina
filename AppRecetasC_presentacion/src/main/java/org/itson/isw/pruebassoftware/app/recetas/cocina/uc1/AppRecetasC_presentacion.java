@@ -1,4 +1,4 @@
-package com.mycompany.apprecetasc.interfaces;
+package org.itson.isw.pruebassoftware.app.recetas.cocina.uc1;
 
 
 public class AppRecetasC_presentacion {
