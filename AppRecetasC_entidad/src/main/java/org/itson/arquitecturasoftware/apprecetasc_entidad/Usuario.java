@@ -1,5 +1,6 @@
 package org.itson.arquitecturasoftware.apprecetasc_entidad;
 
+import java.util.LinkedList;
 import java.util.Objects;
 
 /**
@@ -14,6 +15,9 @@ public class Usuario {
     String correo; //correo del usuario
     String contrasenia; //contraseña del usuario
     String nombre; //nombre del usuario
+    LinkedList <Receta> recetasFav;
+    LinkedList <Receta> recetasGuardadas;
+    
 
     /**
      * Constructor que inicializa los atributos del usuario
@@ -25,6 +29,9 @@ public class Usuario {
         this.correo = correo;
         this.contrasenia = contrasenia;
         this.nombre = nombre;
+        recetasFav = new LinkedList<>();
+        recetasGuardadas = new LinkedList<>();
+        
     }
 
     /**
@@ -75,6 +82,42 @@ public class Usuario {
         this.nombre = nombre;
     }
 
+    /**
+     * Retorna las recetas favoritas del usuario
+     * @return lista de las recetas favoritas del usuario
+     */
+    public LinkedList<Receta> getRecetasFav() {
+        return recetasFav;
+    }
+
+    /**
+     * Modifica la lista de recetas favoritas del usuario
+     * @param recetasFav lsita de recitas favoritas del usuario
+     */
+    public void setRecetasFav(LinkedList<Receta> recetasFav) {
+        this.recetasFav = recetasFav;
+    }
+
+    /**
+     * Retorna las recetas guardadas del usuario
+     * @return lista de las recetas guardadas del usuario
+     */
+    public LinkedList<Receta> getRecetasGuardadas() {
+        return recetasGuardadas;
+    }
+
+    /**
+     * Modifica la lista de recetas guardadas del usuario
+     * @param recetasGuardadas lista de recetas guardadas del usuario
+     */
+    public void setRecetasGuardadas(LinkedList<Receta> recetasGuardadas) {
+        this.recetasGuardadas = recetasGuardadas;
+    }
+    
+    /**
+     * retorna el hash de la receta
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -82,6 +125,11 @@ public class Usuario {
         return hash;
     }
 
+    /**
+     * Este método evalua si una receta es igual a otra.
+     * @param obj
+     * @return true or false
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
