@@ -26,14 +26,6 @@ public class RecetaDAO implements IRecetaDAO{
      * {@inheritDoc}
      */
     @Override
-    public Receta anadirPaso(Receta receta, Paso paso) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public LinkedList<Receta> obtieneRecetasGuardadas(Usuario usuario) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

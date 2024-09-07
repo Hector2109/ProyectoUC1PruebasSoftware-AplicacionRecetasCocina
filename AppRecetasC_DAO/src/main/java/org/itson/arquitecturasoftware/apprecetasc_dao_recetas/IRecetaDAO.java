@@ -1,7 +1,6 @@
 package org.itson.arquitecturasoftware.apprecetasc_dao_recetas;
 
 import java.util.LinkedList;
-import org.itson.arquitecturasoftware.apprecetasc_entidad.Paso;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Receta;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Usuario;
 
@@ -20,15 +19,6 @@ public interface IRecetaDAO {
      * @return receta 
      */
     Receta obtenerReceta(Receta receta);
-    
-    /**
-     * Añade un paso a una receta;
-     * @param receta receta a la que se añadirá el paso
-     * @param paso paso a añadir
-     * @return retorna la receta a la que se añadio el paso
-     */
-    Receta anadirPaso (Receta receta, Paso paso);
-    
     
     /**
      * Retorna las recetas guardadas de un usuario
