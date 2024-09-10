@@ -17,6 +17,7 @@ public class Usuario {
     String nombre; //nombre del usuario
     LinkedList <Receta> recetasFav;
     LinkedList <Receta> recetasGuardadas;
+    LinkedList <Ingrediente> ingredientes;
     
 
     /**
@@ -31,7 +32,7 @@ public class Usuario {
         this.nombre = nombre;
         recetasFav = new LinkedList<>();
         recetasGuardadas = new LinkedList<>();
-        
+        ingredientes = new LinkedList<>();
     }
 
     /**
@@ -113,6 +114,17 @@ public class Usuario {
     public void setRecetasGuardadas(LinkedList<Receta> recetasGuardadas) {
         this.recetasGuardadas = recetasGuardadas;
     }
+
+    public LinkedList<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(LinkedList<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+    
+    
+    
     
     /**
      * retorna el hash de la receta
