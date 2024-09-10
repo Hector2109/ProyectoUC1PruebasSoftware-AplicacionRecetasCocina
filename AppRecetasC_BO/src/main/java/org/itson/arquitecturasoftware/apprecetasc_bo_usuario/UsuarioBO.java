@@ -9,9 +9,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.itson.arquitecturasoftware.apprecetasc_dao_Exception.DAOException;
 import org.itson.arquitecturasoftware.apprecetasc_dao_usuario.UsuarioDAO;
+import org.itson.arquitecturasoftware.apprecetasc_dto.IngredienteDTO;
 import org.itson.arquitecturasoftware.apprecetasc_dto.PasoDTO;
 import org.itson.arquitecturasoftware.apprecetasc_dto.RecetaDTO;
 import org.itson.arquitecturasoftware.apprecetasc_dto.UsuarioDTO;
+import org.itson.arquitecturasoftware.apprecetasc_entidad.Ingrediente;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Paso;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Receta;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Usuario;
@@ -52,16 +54,23 @@ public class UsuarioBO implements IUsuarioBO{
         
         for (Receta receta : user.getRecetasFav()) {
             LinkedList<PasoDTO> pasosEncontrados = new LinkedList<>();
+            LinkedList<IngredienteDTO> ingredientesEncontrados = new LinkedList<>();
             
             for (Paso paso : receta.getPasos()) {
                 pasosEncontrados.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
             }
             
+            for (Ingrediente ingrediente : receta.getIngredientes()) {
+                ingredientesEncontrados.add(new IngredienteDTO(ingrediente.getNombre(),ingrediente.getCantidad(),ingrediente.getTipoCantidad()));
+            }
+            
+            
             RecetaDTO recetaDTO = new RecetaDTO(
                     receta.getNombre(), 
                     receta.getDuracion(), 
-                    receta.getTipo(), 
-                    pasosEncontrados
+                    receta.getTipo(),
+                    pasosEncontrados,
+                    ingredientesEncontrados
             );
             
             recetasEncontradas.add(recetaDTO);
@@ -71,16 +80,22 @@ public class UsuarioBO implements IUsuarioBO{
         
         for (Receta receta : user.getRecetasGuardadas()) {
             LinkedList<PasoDTO> pasosEncontradosG = new LinkedList<>();
+            LinkedList<IngredienteDTO> ingredientesEncontradosG = new LinkedList<>();
             
             for (Paso paso : receta.getPasos()) {
                 pasosEncontradosG.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
+            }
+            
+            for (Ingrediente ingrediente : receta.getIngredientes()) {
+                ingredientesEncontradosG.add(new IngredienteDTO(ingrediente.getNombre(),ingrediente.getCantidad(),ingrediente.getTipoCantidad()));
             }
             
             RecetaDTO recetaDTO = new RecetaDTO(
                     receta.getNombre(), 
                     receta.getDuracion(), 
                     receta.getTipo(), 
-                    pasosEncontradosG
+                    pasosEncontradosG,
+                    ingredientesEncontradosG
             );
             
             recetasEncontradas.add(recetaDTO);

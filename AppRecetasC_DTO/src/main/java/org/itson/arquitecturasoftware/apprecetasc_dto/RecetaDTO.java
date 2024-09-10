@@ -15,6 +15,7 @@ public class RecetaDTO {
    int duracion; //duración en minutos de la receta
    String tipo; //tipo de receta.
    LinkedList <PasoDTO> pasos;
+   LinkedList <IngredienteDTO> ingredientes;
 
    /**
     * Consructor de objeto receta
@@ -22,12 +23,14 @@ public class RecetaDTO {
     * @param duracion duración en minutos de la receta
     * @param tipo tipo de receta
     * @param pasos pasos de la receta
+    * @param ingredientes ingredientes de la receta
     */
-    public RecetaDTO(String nombre, int duracion, String tipo, LinkedList <PasoDTO> pasos) {
+    public RecetaDTO(String nombre, int duracion, String tipo, LinkedList <PasoDTO> pasos, LinkedList <IngredienteDTO> ingredientes) {
         this.nombre = nombre;
         this.duracion = duracion;
         this.tipo = tipo;
         this.pasos = pasos;
+        this.ingredientes = ingredientes;
     }
     
 
@@ -93,6 +96,22 @@ public class RecetaDTO {
      */
     public void setPasos(LinkedList<PasoDTO> pasos) {
         this.pasos = pasos;
+    }
+
+    /**
+     * Retorna los ingredientes de la receta
+     * @return ingredientes de la receta
+     */
+    public LinkedList<IngredienteDTO> getIngredientes() {
+        return ingredientes;
+    }
+
+    /**
+     * Modifica la lista de los ingredientes de la receta
+     * @param ingredientes lista de los pasos de la receta
+     */
+    public void setIngredientes(LinkedList<IngredienteDTO> ingredientes) {
+        this.ingredientes = ingredientes;
     }
     
     

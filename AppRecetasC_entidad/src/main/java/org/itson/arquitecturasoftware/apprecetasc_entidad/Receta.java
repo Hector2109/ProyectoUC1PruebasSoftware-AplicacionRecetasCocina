@@ -23,6 +23,18 @@ public class Receta {
     * @param nombre nombre de la receta
     * @param duracion duración en minutos de la receta
     * @param tipo tipo de receta
+    */
+    public Receta(String nombre, int duracion, String tipo) {
+        this.nombre = nombre;
+        this.duracion = duracion;
+        this.tipo = tipo;
+    }
+   
+   /**
+    * Consructor de objeto receta
+    * @param nombre nombre de la receta
+    * @param duracion duración en minutos de la receta
+    * @param tipo tipo de receta
     * @param pasos pasos de la receta
     * @param ingredientes ingredientes de la receta
     */
