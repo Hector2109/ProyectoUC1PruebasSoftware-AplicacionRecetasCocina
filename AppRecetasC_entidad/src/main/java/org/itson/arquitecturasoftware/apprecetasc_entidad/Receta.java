@@ -14,6 +14,7 @@ public class Receta {
    String nombre; //nombre de la receta
    int duracion; //duración en minutos de la receta
    String tipo; //tipo de receta.
+   LinkedList <Ingrediente> ingredientes;
    LinkedList <Paso> pasos;
 
    /**
@@ -22,12 +23,14 @@ public class Receta {
     * @param duracion duración en minutos de la receta
     * @param tipo tipo de receta
     * @param pasos pasos de la receta
+    * @param ingredientes ingredientes de la receta
     */
-    public Receta(String nombre, int duracion, String tipo, LinkedList <Paso> pasos) {
+    public Receta(String nombre, int duracion, String tipo, LinkedList <Paso> pasos, LinkedList<Ingrediente> ingredientes) {
         this.nombre = nombre;
         this.duracion = duracion;
         this.tipo = tipo;
         this.pasos = pasos;
+        this.ingredientes = ingredientes;
     }
     
 
@@ -93,6 +96,22 @@ public class Receta {
      */
     public void setPasos(LinkedList<Paso> pasos) {
         this.pasos = pasos;
+    }
+
+    /**
+     * Retorna los ingredientes de la receta
+     * @return ingredientes ingredientes de la receta
+     */
+    public LinkedList<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    /**
+     * Modica los ingredietnes de la receta
+     * @param ingredientes ingredientes de la receta
+     */
+    public void setIngredientes(LinkedList<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
     }
     
     
