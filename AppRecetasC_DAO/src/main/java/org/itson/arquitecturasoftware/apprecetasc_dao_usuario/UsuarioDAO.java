@@ -1,5 +1,6 @@
 package org.itson.arquitecturasoftware.apprecetasc_dao_usuario;
 
+import org.itson.arquitecturasoftware.apprecetasc_bdsimulada.Usuarios;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Receta;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Usuario;
 
@@ -12,12 +13,24 @@ import org.itson.arquitecturasoftware.apprecetasc_entidad.Usuario;
  */
 public class UsuarioDAO implements IUsuarioDAO{
 
+    Usuarios usuariosBD;
+
+    public UsuarioDAO() {
+        
+        usuariosBD = new Usuarios();
+        
+    }
+    
+    
+    
     /**
      * {@inheritDoc}
      */
     @Override
     public Usuario obtenerUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        return null;
+        
     }
 
     /**
