@@ -1,6 +1,7 @@
 package org.itson.arquitecturasoftware.apprecetasc_entidad;
 
 import java.util.LinkedList;
+import java.util.Objects;
 
 /**
  *
@@ -112,6 +113,28 @@ public class Receta {
      */
     public void setIngredientes(LinkedList<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.nombre);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Receta other = (Receta) obj;
+        return Objects.equals(this.nombre, other.nombre);
     }
     
     
