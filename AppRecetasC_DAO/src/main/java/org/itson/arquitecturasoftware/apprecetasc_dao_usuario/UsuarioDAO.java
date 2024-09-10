@@ -35,7 +35,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 int index = usuariosBD.getUsuarios().indexOf(usuario);
                 return usuariosBD.getUsuarios().get(index);
             }else{
-                throw new DAOException ("Error: Contraseña incorrecta");
+                throw new DAOException ("Error: Usuario no encontrado");
             }
         }else{
             throw new DAOException ("Error: No se añadio ningún usuario");
@@ -48,7 +48,11 @@ public class UsuarioDAO implements IUsuarioDAO{
      */
     @Override
     public Usuario anadiirRecetaFav(Receta receta, Usuario usuario) throws DAOException{
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        usuario = obtenerUsuario(usuario);
+        usuario.getRecetasFav().add(receta);
+        usuariosBD.getUsuarios().set(usuariosBD.getUsuarios().indexOf(usuario), usuario);
+        return usuario;
+        
     }
 
     /**
@@ -56,7 +60,11 @@ public class UsuarioDAO implements IUsuarioDAO{
      */
     @Override
     public Usuario anadirCarrito(Receta receta, Usuario usuario) throws DAOException{
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        usuario = obtenerUsuario(usuario);
+        usuario.getRecetasGuardadas().add(receta);
+        
+        usuariosBD.getUsuarios().set(usuariosBD.getUsuarios().indexOf(usuario), usuario);
+        return usuario;
     }
 
     /**
@@ -83,5 +91,7 @@ public class UsuarioDAO implements IUsuarioDAO{
     public Usuario eliminarRecetaGuardada(Receta receta, Usuario usuario) throws DAOException{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    
     
 }
