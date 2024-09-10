@@ -16,31 +16,49 @@ import org.itson.arquitecturasoftware.apprecetasc_dto.UsuarioDTO;
  */
 public class UsuarioBO implements IUsuarioBO{
 
+    /**
+     * {@inheritDoc}     * 
+     */
     @Override
     public UsuarioDTO obtenerUsuario(UsuarioDTO usuario) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * {@inheritDoc}     * 
+     */
     @Override
     public UsuarioDTO anadiirRecetaFav(RecetaDTO receta) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * {@inheritDoc}     * 
+     */
     @Override
     public UsuarioDTO anadirCarrito(RecetaDTO receta) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * {@inheritDoc}     * 
+     */
     @Override
     public UsuarioDTO eliminarRecetaFav(RecetaDTO receta) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * {@inheritDoc}     * 
+     */
     @Override
     public UsuarioDTO anadirRecetaGuardada(RecetaDTO receta) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * {@inheritDoc}     * 
+     */
     @Override
     public UsuarioDTO eliminarRecetaGuardada(RecetaDTO receta) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
