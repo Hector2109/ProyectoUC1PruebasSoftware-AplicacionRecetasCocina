@@ -34,4 +34,6 @@ public interface IRecetaDAO {
      */
     LinkedList<Receta> obtieneRecetasFav (Usuario usuario);
     
+    
+    
 }
