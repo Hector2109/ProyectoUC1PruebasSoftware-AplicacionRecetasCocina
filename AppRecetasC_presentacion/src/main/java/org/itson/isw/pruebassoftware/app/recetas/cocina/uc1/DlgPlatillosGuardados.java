@@ -27,18 +27,47 @@ public class DlgPlatillosGuardados extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        txtTiempo = new javax.swing.JTextField();
+        txtIngrediente1 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblResultadoRecetas = new javax.swing.JTable();
+        fondo = new javax.swing.JLabel();
+        txtTipo1 = new javax.swing.JTextField();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtTiempo.setBackground(new java.awt.Color(211, 204, 192));
+        txtTiempo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        getContentPane().add(txtTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 180, 250, 60));
+
+        txtIngrediente1.setBackground(new java.awt.Color(211, 204, 192));
+        txtIngrediente1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        getContentPane().add(txtIngrediente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 180, 310, 60));
+
+        tblResultadoRecetas.setBackground(new java.awt.Color(217, 217, 217));
+        tblResultadoRecetas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tblResultadoRecetas.setPreferredSize(new java.awt.Dimension(1338, 511));
+        jScrollPane3.setViewportView(tblResultadoRecetas);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 1400, 540));
+
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/platillosGuardados.png"))); // NOI18N
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        txtTipo1.setBackground(new java.awt.Color(211, 204, 192));
+        txtTipo1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        getContentPane().add(txtTipo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 180, 290, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -86,5 +115,11 @@ public class DlgPlatillosGuardados extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel fondo;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tblResultadoRecetas;
+    private javax.swing.JTextField txtIngrediente1;
+    private javax.swing.JTextField txtTiempo;
+    private javax.swing.JTextField txtTipo1;
     // End of variables declaration//GEN-END:variables
 }
