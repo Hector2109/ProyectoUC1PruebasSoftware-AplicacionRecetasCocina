@@ -30,8 +30,7 @@ public class RecetaDAO implements IRecetaDAO {
      *
      * @param receta receta.
      * @return una receta
-     * @throws
-     * org.itson.arquitecturasoftware.apprecetasc_dao_Exception.DAOException
+     * @throws DAOException en caso de no encontrar la receta.
      */
     @Override
     public Receta obtenerReceta(Receta receta) throws DAOException {
@@ -48,7 +47,11 @@ public class RecetaDAO implements IRecetaDAO {
     }
 
     /**
-     * {@inheritDoc}
+     * Método para obtener las recetas guardadas por un usuario.
+     * 
+     * @param usuario usuario
+     * @return recetas guardadas
+     * @throws DAOException en caso de no encontrar la receta.
      */
     @Override
     public LinkedList<Receta> obtieneRecetasGuardadas(Usuario usuario) throws DAOException {
@@ -61,7 +64,10 @@ public class RecetaDAO implements IRecetaDAO {
     }
 
     /**
-     * {@inheritDoc}
+     * Método 
+     * @param usuario usuario
+     * @return recetas favoritas del usuario.
+     * @throws DAOException en caso de no encontrar la receta.
      */
     @Override
     public LinkedList<Receta> obtieneRecetasFav(Usuario usuario) throws DAOException {

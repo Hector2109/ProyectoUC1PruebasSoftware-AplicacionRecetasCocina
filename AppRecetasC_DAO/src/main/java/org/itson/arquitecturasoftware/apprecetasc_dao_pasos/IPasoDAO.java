@@ -1,6 +1,7 @@
 package org.itson.arquitecturasoftware.apprecetasc_dao_pasos;
 
 import java.util.LinkedList;
+import org.itson.arquitecturasoftware.apprecetasc_dao_Exception.DAOException;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Paso;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Receta;
 
@@ -18,6 +19,6 @@ public interface IPasoDAO {
      * @param receta receta a considerar
      * @return lista de passos de la receta
      */
-    LinkedList<Paso> obtenerPasos(Receta receta);
+    LinkedList<Paso> obtenerPasos(Receta receta) throws DAOException;
 
 }
