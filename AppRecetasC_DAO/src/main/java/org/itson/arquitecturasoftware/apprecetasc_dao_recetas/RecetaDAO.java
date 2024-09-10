@@ -14,12 +14,14 @@ import org.itson.arquitecturasoftware.apprecetasc_entidad.Usuario;
  */
 public class RecetaDAO implements IRecetaDAO{
 
+    
+    
     /**
      * {@inheritDoc}
      */
     @Override
     public Receta obtenerReceta(Receta receta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     /**
