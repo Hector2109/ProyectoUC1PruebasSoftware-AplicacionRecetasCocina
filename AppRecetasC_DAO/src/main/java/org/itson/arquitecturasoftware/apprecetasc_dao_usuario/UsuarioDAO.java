@@ -1,6 +1,7 @@
 package org.itson.arquitecturasoftware.apprecetasc_dao_usuario;
 
 import org.itson.arquitecturasoftware.apprecetasc_bdsimulada.Usuarios;
+import org.itson.arquitecturasoftware.apprecetasc_dao_Exception.DAOException;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Receta;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Usuario;
 
@@ -27,9 +28,18 @@ public class UsuarioDAO implements IUsuarioDAO{
      * {@inheritDoc}
      */
     @Override
-    public Usuario obtenerUsuario(Usuario usuario) {
+    public Usuario obtenerUsuario(Usuario usuario) throws DAOException{
         
-        return null;
+        if (usuariosBD.getUsuarios()!=null){
+            if (usuariosBD.getUsuarios().contains(usuario)){  
+                int index = usuariosBD.getUsuarios().indexOf(usuario);
+                return usuariosBD.getUsuarios().get(index);
+            }else{
+                throw new DAOException ("Error: Contraseña incorrecta");
+            }
+        }else{
+            throw new DAOException ("Error: No se añadio ningún usuario");
+        }
         
     }
 
@@ -37,7 +47,7 @@ public class UsuarioDAO implements IUsuarioDAO{
      * {@inheritDoc}
      */
     @Override
-    public Usuario anadiirRecetaFav(Receta receta) {
+    public Usuario anadiirRecetaFav(Receta receta, Usuario usuario) throws DAOException{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -45,7 +55,7 @@ public class UsuarioDAO implements IUsuarioDAO{
      * {@inheritDoc}
      */
     @Override
-    public Usuario anadirCarrito(Receta receta) {
+    public Usuario anadirCarrito(Receta receta, Usuario usuario) throws DAOException{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -53,7 +63,7 @@ public class UsuarioDAO implements IUsuarioDAO{
      * {@inheritDoc}
      */
     @Override
-    public Usuario eliminarRecetaFav(Receta receta) {
+    public Usuario eliminarRecetaFav(Receta receta, Usuario usuario) throws DAOException{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
@@ -62,7 +72,7 @@ public class UsuarioDAO implements IUsuarioDAO{
      */
     
     @Override
-    public Usuario anadirRecetaGuardada(Receta receta) {
+    public Usuario anadirRecetaGuardada(Receta receta, Usuario usuario) throws DAOException{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
@@ -70,7 +80,7 @@ public class UsuarioDAO implements IUsuarioDAO{
      * {@inheritDoc}
      */
     @Override
-    public Usuario eliminarRecetaGuardada(Receta receta) {
+    public Usuario eliminarRecetaGuardada(Receta receta, Usuario usuario) throws DAOException{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
