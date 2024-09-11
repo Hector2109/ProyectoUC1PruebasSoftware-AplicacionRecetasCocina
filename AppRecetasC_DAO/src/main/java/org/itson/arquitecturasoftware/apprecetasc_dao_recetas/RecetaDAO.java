@@ -39,7 +39,7 @@ public class RecetaDAO implements IRecetaDAO {
                 int index = recetasBD.getRecetas().indexOf(receta);
                 return recetasBD.getRecetas().get(index);
             } else {
-                throw new DAOException("Error: Contraseña incorrecta");
+                throw new DAOException("Error: No se encontró ninguna receta");
             }
         } else {
             throw new DAOException("Error: No se encontró ninguna receta");
@@ -78,5 +78,22 @@ public class RecetaDAO implements IRecetaDAO {
         }
 
     }
+
+    /**
+     * Método para obtener todas las recetas de la base de datos.
+     * 
+     * @return todas las recetas.
+     * @throws DAOException en caso de no encontrar las recetas.
+     */
+    @Override
+    public LinkedList<Receta> obtieneRecetas() throws DAOException {
+        if (recetasBD.getRecetas() != null) {
+            return recetasBD.getRecetas();
+        } else {
+            throw new DAOException("Error: No se encontró ninguna receta");
+        }
+    }
+    
+
 
 }
