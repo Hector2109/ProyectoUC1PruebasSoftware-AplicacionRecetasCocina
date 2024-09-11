@@ -113,39 +113,8 @@ public class UsuarioBO implements IUsuarioBO{
      */
     @Override
     public UsuarioDTO anadirRecetaFav(RecetaDTO receta, UsuarioDTO usuario)  throws ValidacionDTOException{
-        
-        LinkedList<Paso> pasos = new LinkedList<>();
-        
-        for (PasoDTO pasoDTO : receta.getPasos()) {
-            Paso paso = new Paso(
-                    pasoDTO.getNumero(), 
-                    pasoDTO.getDescripcion()
-            );
-            pasos.add(paso);
-        }
-        
-        LinkedList<Ingrediente> ingredientes = new LinkedList<>();
-        
-        for (IngredienteDTO ingredienteDTO : receta.getIngredientes()) {
-            Ingrediente ingrediente = new Ingrediente(
-                    ingredienteDTO.getTipoCantidad(), 
-                    ingredienteDTO.getCantidad(), 
-                    ingredienteDTO.getTipoCantidad()
-            );
-            ingredientes.add(ingrediente);
-        }
-        
-        Receta recetaE = new Receta(
-                receta.getNombre(), 
-                receta.getDuracion(), 
-                receta.getTipo(), 
-                pasos, 
-                ingredientes
-        );
-
-        
         try {
-            usuarioDAO.anadiirRecetaFav(recetaE, new Usuario (usuario.getCorreo()));
+            usuarioDAO.anadiirRecetaFav(new Receta(receta.getNombre()), new Usuario (usuario.getCorreo()));
             return obtenerUsuario(usuario);
         } catch (DAOException ex) {
             throw new ValidacionDTOException (ex.getMessage());
