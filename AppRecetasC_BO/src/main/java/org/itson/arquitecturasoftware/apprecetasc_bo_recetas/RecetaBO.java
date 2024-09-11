@@ -290,5 +290,10 @@ public class RecetaBO implements IRecetaBO{
     public LinkedList<RecetaDTO> buscarRecetaDuracion(int minutos) {
         return recetaEntidadADTO (recetaDAO.buscarRecetaTiempo(minutos));
     }
+
+    @Override
+    public LinkedList<RecetaDTO> buscarRecetaIngrediente(String ingrediente) {
+        return recetaEntidadADTO (recetaDAO.buscarRecetaIngrediente(ingrediente));
+    }
       
 }

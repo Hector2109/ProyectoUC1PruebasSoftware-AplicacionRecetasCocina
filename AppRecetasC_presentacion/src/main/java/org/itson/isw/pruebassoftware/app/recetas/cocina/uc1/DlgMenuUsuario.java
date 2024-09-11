@@ -4,18 +4,26 @@
  */
 package org.itson.isw.pruebassoftware.app.recetas.cocina.uc1;
 
+import org.itson.arquitecturasoftware.apprecetasc_bo_Control.ControlBO;
+import org.itson.arquitecturasoftware.apprecetasc_dto.UsuarioDTO;
+
 /**
  *
  * @author Jesus
  */
 public class DlgMenuUsuario extends javax.swing.JDialog {
 
+    ControlBO control;
+    UsuarioDTO usuario;
+    
     /**
      * Creates new form DlgMenuUsuario
      */
-    public DlgMenuUsuario(java.awt.Frame parent, boolean modal) {
+    public DlgMenuUsuario(java.awt.Dialog parent, boolean modal, ControlBO control, UsuarioDTO usuario) {
         super(parent, modal);
         initComponents();
+        this.control = control;
+        this.usuario = usuario;
     }
 
     /**
@@ -28,6 +36,7 @@ public class DlgMenuUsuario extends javax.swing.JDialog {
     private void initComponents() {
 
         btnBuscarEnMenu = new javax.swing.JButton();
+        btnFavoritos = new javax.swing.JButton();
         btnGuardados = new javax.swing.JButton();
         btnListaCompraIngredientes = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
@@ -47,17 +56,38 @@ public class DlgMenuUsuario extends javax.swing.JDialog {
         });
         getContentPane().add(btnBuscarEnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(781, 212, 544, 75));
 
+        btnFavoritos.setBackground(new java.awt.Color(92, 157, 157));
+        btnFavoritos.setFont(new java.awt.Font("Segoe UI Emoji", 1, 32)); // NOI18N
+        btnFavoritos.setText("Platillos favoritos");
+        btnFavoritos.setBorderPainted(false);
+        btnFavoritos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFavoritosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFavoritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 450, 544, 75));
+
         btnGuardados.setBackground(new java.awt.Color(92, 157, 157));
         btnGuardados.setFont(new java.awt.Font("Segoe UI Emoji", 1, 32)); // NOI18N
         btnGuardados.setText("Platillos guardados");
         btnGuardados.setBorderPainted(false);
+        btnGuardados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardadosActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnGuardados, new org.netbeans.lib.awtextra.AbsoluteConstraints(781, 338, 544, 75));
 
         btnListaCompraIngredientes.setBackground(new java.awt.Color(92, 157, 157));
         btnListaCompraIngredientes.setFont(new java.awt.Font("Segoe UI Emoji", 1, 32)); // NOI18N
         btnListaCompraIngredientes.setText("Lista de ingredientes");
         btnListaCompraIngredientes.setBorderPainted(false);
-        getContentPane().add(btnListaCompraIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(781, 464, 544, 75));
+        btnListaCompraIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListaCompraIngredientesActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnListaCompraIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 570, 544, 75));
 
         btnCerrarSesion.setBackground(new java.awt.Color(92, 157, 157));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI Emoji", 1, 32)); // NOI18N
@@ -68,7 +98,7 @@ public class DlgMenuUsuario extends javax.swing.JDialog {
                 btnCerrarSesionActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(781, 600, 544, 75));
+        getContentPane().add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 690, 544, 75));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MenuUsuario.png"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -78,18 +108,41 @@ public class DlgMenuUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarEnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEnMenuActionPerformed
-        // TODO add your handling code here:
+        DlgMenuPlatillos platillos = new DlgMenuPlatillos(this, true, control,usuario);
+        dispose();
+        platillos.setVisible(true);
     }//GEN-LAST:event_btnBuscarEnMenuActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
+        FrmPrincipal principal = new FrmPrincipal(control);
+        dispose();
+        principal.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnGuardadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardadosActionPerformed
+        DlgPlatillosGuardados platillosGuardados = new DlgPlatillosGuardados(this, true, control, usuario);
+        dispose();
+        platillosGuardados.setVisible(true);
+    }//GEN-LAST:event_btnGuardadosActionPerformed
+
+    private void btnListaCompraIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaCompraIngredientesActionPerformed
+        DlgListaIngredientes dlgIngredientes = new DlgListaIngredientes (this, true, control, usuario);
+        dispose();
+        dlgIngredientes.setVisible(true);
+    }//GEN-LAST:event_btnListaCompraIngredientesActionPerformed
+
+    private void btnFavoritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFavoritosActionPerformed
+        DlgPlatillosFavoritos platillosFavoritos = new DlgPlatillosFavoritos(this, true, control, usuario);
+        dispose();
+        platillosFavoritos.setVisible(true);
+    }//GEN-LAST:event_btnFavoritosActionPerformed
 
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarEnMenu;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnFavoritos;
     private javax.swing.JButton btnGuardados;
     private javax.swing.JButton btnListaCompraIngredientes;
     private javax.swing.JLabel fondo;

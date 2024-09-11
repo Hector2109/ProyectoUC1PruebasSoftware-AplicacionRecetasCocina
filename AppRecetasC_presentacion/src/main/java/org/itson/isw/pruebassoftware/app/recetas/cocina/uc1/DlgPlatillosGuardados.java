@@ -4,18 +4,55 @@
  */
 package org.itson.isw.pruebassoftware.app.recetas.cocina.uc1;
 
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import org.itson.arquitecturasoftware.apprecetasc_bo_Control.ControlBO;
+import org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException;
+import org.itson.arquitecturasoftware.apprecetasc_dto.RecetaDTO;
+import org.itson.arquitecturasoftware.apprecetasc_dto.UsuarioDTO;
+import org.itson.isw.pruebassoftware.app.recetas.cocina.uc1.DlgMenuUsuario;
+
 /**
  *
  * @author Dell
  */
 public class DlgPlatillosGuardados extends javax.swing.JDialog {
 
+    private ControlBO control;
+    private UsuarioDTO usuario;
+    
     /**
      * Creates new form DlgPlatillosGuardados
      */
-    public DlgPlatillosGuardados(java.awt.Frame parent, boolean modal) {
+    public DlgPlatillosGuardados(java.awt.Dialog parent, boolean modal, ControlBO control, UsuarioDTO usuario) {
         super(parent, modal);
+        this.control = control;
+        this.usuario = usuario;
+        
         initComponents();
+        try {
+            llenarTabla();
+        } catch (ValidacionDTOException ex) {
+            Logger.getLogger(DlgPlatillosGuardados.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // Agregar MouseListener para detectar doble clic en la tabla
+        tblPlatillos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) {
+                    mostrarDetallesReceta();
+                }
+            }
+        });
     }
 
     /**
@@ -27,30 +64,29 @@ public class DlgPlatillosGuardados extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtTiempo = new javax.swing.JTextField();
-        txtIngrediente1 = new javax.swing.JTextField();
-        txtTipoDeCocina = new javax.swing.JTextField();
+        btnRegresar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblResultadoRecetas = new javax.swing.JTable();
+        tblPlatillos = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtTiempo.setBackground(new java.awt.Color(211, 204, 192));
-        txtTiempo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        getContentPane().add(txtTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 180, 250, 60));
+        btnRegresar.setBackground(new java.awt.Color(92, 157, 157));
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnRegresar.setText("Regresar");
+        btnRegresar.setBorder(null);
+        btnRegresar.setBorderPainted(false);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 210, 70));
 
-        txtIngrediente1.setBackground(new java.awt.Color(211, 204, 192));
-        txtIngrediente1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        getContentPane().add(txtIngrediente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 180, 310, 60));
-
-        txtTipoDeCocina.setBackground(new java.awt.Color(211, 204, 192));
-        txtTipoDeCocina.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        getContentPane().add(txtTipoDeCocina, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 180, 290, 60));
-
-        tblResultadoRecetas.setBackground(new java.awt.Color(217, 217, 217));
-        tblResultadoRecetas.setModel(new javax.swing.table.DefaultTableModel(
+        tblPlatillos.setBackground(new java.awt.Color(217, 217, 217));
+        tblPlatillos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -61,10 +97,13 @@ public class DlgPlatillosGuardados extends javax.swing.JDialog {
 
             }
         ));
-        tblResultadoRecetas.setPreferredSize(new java.awt.Dimension(1338, 511));
-        jScrollPane3.setViewportView(tblResultadoRecetas);
+        tblPlatillos.setPreferredSize(new java.awt.Dimension(1338, 511));
+        jScrollPane3.setViewportView(tblPlatillos);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 1400, 540));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 1400, 610));
+
+        jPanel1.setBackground(new java.awt.Color(245, 245, 220));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 1500, 150));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/platillosGuardados.png"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -73,14 +112,79 @@ public class DlgPlatillosGuardados extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        DlgMenuUsuario menu = new DlgMenuUsuario(this, true, control, usuario);
+        dispose();
+        menu.setVisible(true);
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    public void llenarTabla() throws ValidacionDTOException {
+        DefaultTableModel modelo = new DefaultTableModel();
+        LinkedList <RecetaDTO> recetas = control.obtenerRecetasGuardada(usuario);
+        
+        
+        // Columna para las imágenes y el nombre de las recetas
+        modelo.addColumn("Imagen");
+        modelo.addColumn("Nombre");
+
+        for (RecetaDTO receta : recetas) {
+            // Obtener la imagen automáticamente según el nombre de la receta
+            ImageIcon imagenOriginal = ImageLoader.obtenerImagen(receta.getNombre());
+
+            // Escalar la imagen a un tamaño adecuado (por ejemplo, 50x50 píxeles)
+            Image imagenEscalada = imagenOriginal.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+            ImageIcon imagen = new ImageIcon(imagenEscalada);  // Crear un nuevo ImageIcon con la imagen escalada
+
+            Object[] fila = new Object[]{
+                imagen, // Imagen obtenida automáticamente
+                receta.getNombre() 
+            };
+
+            modelo.addRow(fila);
+        }
+
+        tblPlatillos.setModel(modelo);
+
+        // Establecer el TableCellRenderer personalizado para la columna de imágenes
+        TableColumnModel columnModel = tblPlatillos.getColumnModel();
+        columnModel.getColumn(0).setCellRenderer(new ImageRender());  // Renderer para la columna de imágenes
+
+        // Ajustar ancho de la columna de la imagen (opcional)
+        columnModel.getColumn(0).setPreferredWidth(60);
+        
+         tblPlatillos.setRowHeight(80);
+        
+    }
     
+    // Método para mostrar los detalles de la receta seleccionada
+    private void mostrarDetallesReceta() {
+        int filaSeleccionada = tblPlatillos.getSelectedRow();
+
+        if (filaSeleccionada >= 0) {
+            // Obtener el nombre de la receta desde la columna "Nombre"
+            String nombreReceta = (String) tblPlatillos.getValueAt(filaSeleccionada, 1);
+
+            // Buscar la receta completa usando el nombre
+            RecetaDTO recetaSeleccionada;
+            try {
+                recetaSeleccionada = control.obtenerReceta(new RecetaDTO(nombreReceta));
+                // Crear y mostrar el nuevo diálogo con la receta seleccionada
+                DlgReceta dlg = new DlgReceta(this, true, control, recetaSeleccionada, usuario, ConstantesGUI.GUARDADAS);
+                dlg.setVisible(true);
+            } catch (ValidacionDTOException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error!!", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una receta", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel fondo;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable tblResultadoRecetas;
-    private javax.swing.JTextField txtIngrediente1;
-    private javax.swing.JTextField txtTiempo;
-    private javax.swing.JTextField txtTipoDeCocina;
+    private javax.swing.JTable tblPlatillos;
     // End of variables declaration//GEN-END:variables
 }

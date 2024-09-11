@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.itson.arquitecturasoftware.apprecetasc_bdsimulada.Recetas;
 import org.itson.arquitecturasoftware.apprecetasc_bdsimulada.Usuarios;
 import org.itson.arquitecturasoftware.apprecetasc_dao_Exception.DAOException;
+import org.itson.arquitecturasoftware.apprecetasc_entidad.Ingrediente;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Paso;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Receta;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Usuario;
@@ -163,6 +164,32 @@ public class RecetaDAO implements IRecetaDAO {
             }
             
             return recetasTipo;
+        } catch (DAOException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public LinkedList<Receta> buscarRecetaIngrediente(String ingrediente) {
+        try {
+            LinkedList <Receta> recetas = obtenerRecetas();
+            LinkedList <Receta> recetasIngrediente = new LinkedList<>();
+            
+            
+            for (Receta receta: recetas) {
+                
+                LinkedList <Ingrediente> ingredientes = receta.getIngredientes();
+                
+                for (Ingrediente ingredienteR: ingredientes) {
+                    if (ingredienteR.getNombre().equalsIgnoreCase(ingrediente)){
+                        recetasIngrediente.add(receta);
+                        break;
+                    }
+                }
+                
+            }
+            
+            return recetasIngrediente;
         } catch (DAOException ex) {
             return null;
         }

@@ -4,18 +4,29 @@
  */
 package org.itson.isw.pruebassoftware.app.recetas.cocina.uc1;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.itson.arquitecturasoftware.apprecetasc_bo_Control.ControlBO;
+import org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException;
+import org.itson.arquitecturasoftware.apprecetasc_dto.UsuarioDTO;
+
 /**
  *
  * @author Jesus
  */
 public class DlgInicioSesion extends javax.swing.JDialog {
 
+    ControlBO control;
+    UsuarioDTO usuario;
+    
     /**
      * Creates new form DlgInicioSesion
      */
-    public DlgInicioSesion(java.awt.Frame parent, boolean modal) {
+    public DlgInicioSesion(java.awt.Frame parent, boolean modal, ControlBO control) {
         super(parent, modal);
         initComponents();
+        this.control = control;
     }
 
     /**
@@ -36,6 +47,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtCorreo.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         txtCorreo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -44,6 +56,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         });
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 260, 428, 68));
 
+        txtContrasenia.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         txtContrasenia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         getContentPane().add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, 428, 67));
 
@@ -51,6 +64,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         btnRegresar.setFont(new java.awt.Font("Segoe UI Emoji", 1, 32)); // NOI18N
         btnRegresar.setText("Regresar");
         btnRegresar.setBorderPainted(false);
+        btnRegresar.setContentAreaFilled(false);
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
@@ -62,6 +76,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI Emoji", 1, 32)); // NOI18N
         btnIniciarSesion.setText("Iniciar Sesión");
         btnIniciarSesion.setBorderPainted(false);
+        btnIniciarSesion.setContentAreaFilled(false);
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSesionActionPerformed(evt);
@@ -86,7 +101,16 @@ public class DlgInicioSesion extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        
+        try {
+            control.iniciarSesion(new UsuarioDTO(txtCorreo.getText(), txtContrasenia.getText()));
+            this.usuario = new UsuarioDTO(txtCorreo.getText(), txtContrasenia.getText());
+            DlgMenuUsuario menu = new DlgMenuUsuario(this, true, control, usuario);
+            dispose();
+            menu.setVisible(true);
+            
+        } catch (ValidacionDTOException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error!!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     

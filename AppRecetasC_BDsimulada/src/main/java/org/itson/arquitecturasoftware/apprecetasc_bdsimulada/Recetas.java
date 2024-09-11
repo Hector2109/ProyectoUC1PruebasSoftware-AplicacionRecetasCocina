@@ -101,7 +101,7 @@ public class Recetas {
         listaIngredientesEnsalada.add(new Ingrediente("Aceite de oliva", 10, "mililitros"));
         listaIngredientesEnsalada.add(new Ingrediente("Sal", 10, "gramos"));
         listaIngredientesEnsalada.add(new Ingrediente("Pimienta", 10, "gramos"));
-        this.listaRecetas.add(new Receta("Pizza", 35, "Guasave core", listaPasosEnsalada, listaIngredientesEnsalada));
+        this.listaRecetas.add(new Receta("Pizza Guasave", 35, "Italiana", listaPasosEnsalada, listaIngredientesEnsalada));
         
         
         //Tostadas de Aguacate a la touna

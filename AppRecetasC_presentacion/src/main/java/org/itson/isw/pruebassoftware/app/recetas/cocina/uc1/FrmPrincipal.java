@@ -4,19 +4,29 @@
  */
 package org.itson.isw.pruebassoftware.app.recetas.cocina.uc1;
 
+import org.itson.arquitecturasoftware.apprecetasc_bo_Control.ControlBO;
+
 /**
  *
  * @author Jesus
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
+    ControlBO control;
+    
     /**
      * Creates new form FrmPrincipal
      */
     public FrmPrincipal() {
         initComponents();
+        control = new ControlBO();
     }
 
+    public FrmPrincipal(ControlBO control) {
+        initComponents();
+        this.control = control;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,9 +75,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        DlgInicioSesion iSesion = new DlgInicioSesion(this, rootPaneCheckingEnabled);
-        iSesion.setVisible(rootPaneCheckingEnabled);
+        DlgInicioSesion iSesion = new DlgInicioSesion(this, rootPaneCheckingEnabled, control);
         dispose();
+        iSesion.setVisible(rootPaneCheckingEnabled);   
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

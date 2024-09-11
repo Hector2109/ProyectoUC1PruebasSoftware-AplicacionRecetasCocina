@@ -30,10 +30,10 @@ public class Prueba {
         UsuarioDTO usuario = new UsuarioDTO("betunia@gmail.com", "as", "Vicky");
         
 
-            LinkedList <RecetaDTO> recetasDTO = control.buscarRecetaDuracion(30);
+            LinkedList <RecetaDTO> recetasDTO = control.buscarRecetaIngrediente("sal");
             
             for (RecetaDTO recetaDTO: recetasDTO) {
-                System.out.println(recetaDTO.getDuracion());
+                System.out.println(recetaDTO.getNombre());
             }
             
 //        try {

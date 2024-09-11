@@ -203,6 +203,12 @@ public class ControlBO {
         
     }
     
+    public LinkedList <RecetaDTO> buscarRecetaIngrediente(String ingrediente){
+        
+        return recetaBO.buscarRecetaIngrediente(ingrediente);
+        
+    }
+    
     
     
     

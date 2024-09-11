@@ -191,7 +191,7 @@ public class DlgBuscarProducto extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-//    //Métodos 
+    //Métodos 
 //    private void llenarTabla(List<ProductoDTO> productosBuscados) {
 //
 //        DefaultTableModel modelo = new DefaultTableModel();

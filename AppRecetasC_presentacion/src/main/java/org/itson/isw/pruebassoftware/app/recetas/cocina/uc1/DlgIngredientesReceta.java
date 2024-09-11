@@ -9,7 +9,7 @@ package org.itson.isw.pruebassoftware.app.recetas.cocina.uc1;
  * @author Dell
  */
 public class DlgIngredientesReceta extends javax.swing.JDialog {
-
+    
     /**
      * Creates new form DlgIngredientesReceta
      */
@@ -27,15 +27,26 @@ public class DlgIngredientesReceta extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        lblNombreReceta = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         txtTipoDeCocina = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblResultadoRecetas = new javax.swing.JTable();
+        lblIngredientes = new javax.swing.JLabel();
+        lblPasos = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(245, 245, 220));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblNombreReceta.setFont(new java.awt.Font("Segoe UI Emoji", 1, 32)); // NOI18N
+        lblNombreReceta.setText("Informacion");
+        jPanel1.add(lblNombreReceta, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 560, 80));
 
         btnRegresar.setBackground(new java.awt.Color(92, 157, 157));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -57,22 +68,11 @@ public class DlgIngredientesReceta extends javax.swing.JDialog {
         txtTipoDeCocina.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         getContentPane().add(txtTipoDeCocina, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 160, 510, 60));
 
-        tblResultadoRecetas.setBackground(new java.awt.Color(217, 217, 217));
-        tblResultadoRecetas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
+        lblIngredientes.setText("Ingredientes:");
+        getContentPane().add(lblIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
 
-            }
-        ));
-        tblResultadoRecetas.setPreferredSize(new java.awt.Dimension(1338, 511));
-        jScrollPane3.setViewportView(tblResultadoRecetas);
-
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 1400, 590));
+        lblPasos.setText("Pasos:");
+        getContentPane().add(lblPasos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IngredientesReceta.png"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -90,8 +90,10 @@ public class DlgIngredientesReceta extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel fondo;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable tblResultadoRecetas;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblIngredientes;
+    private javax.swing.JLabel lblNombreReceta;
+    private javax.swing.JLabel lblPasos;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTipoDeCocina;
     // End of variables declaration//GEN-END:variables

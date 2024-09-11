@@ -4,18 +4,53 @@
  */
 package org.itson.isw.pruebassoftware.app.recetas.cocina.uc1;
 
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import org.itson.arquitecturasoftware.apprecetasc_bo_Control.ControlBO;
+import org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException;
+import org.itson.arquitecturasoftware.apprecetasc_dto.RecetaDTO;
+import org.itson.arquitecturasoftware.apprecetasc_dto.UsuarioDTO;
+
 /**
  *
  * @author Jesus
  */
 public class DlgMenuPlatillos extends javax.swing.JDialog {
 
+    ControlBO control;
+    UsuarioDTO usuario;
+    
     /**
      * Creates new form DlgMenuPlatillos
      */
-    public DlgMenuPlatillos(java.awt.Frame parent, boolean modal) {
+    public DlgMenuPlatillos(java.awt.Dialog parent, boolean modal, ControlBO control, UsuarioDTO usuario){
         super(parent, modal);
         initComponents();
+        this.control = control;
+        this.usuario = usuario;
+        try {
+            llenarTabla(control.obtenerRecetas());
+        } catch (ValidacionDTOException ex) {
+            System.out.println("");
+        }
+        
+        // Agregar MouseListener para detectar doble clic en la tabla
+        tblPlatillos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) {
+                    mostrarDetallesReceta();
+                }
+            }
+        });
     }
 
     /**
@@ -27,6 +62,10 @@ public class DlgMenuPlatillos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnLimpiarCampos = new javax.swing.JButton();
+        btnBuscarPorTiempo = new javax.swing.JButton();
+        btnPorIngrediente = new javax.swing.JButton();
+        btnBuscarPorTipo = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         txtIngredienteF = new javax.swing.JTextField();
         txtTipoCocina = new javax.swing.JTextField();
@@ -38,10 +77,59 @@ public class DlgMenuPlatillos extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnLimpiarCampos.setBackground(new java.awt.Color(92, 157, 157));
+        btnLimpiarCampos.setFont(new java.awt.Font("Segoe UI Emoji", 0, 32)); // NOI18N
+        btnLimpiarCampos.setText("Limpiar");
+        btnLimpiarCampos.setBorderPainted(false);
+        btnLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarCamposActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLimpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 50, 191, 50));
+
+        btnBuscarPorTiempo.setBackground(new java.awt.Color(92, 157, 157));
+        btnBuscarPorTiempo.setFont(new java.awt.Font("Segoe UI Emoji", 0, 32)); // NOI18N
+        btnBuscarPorTiempo.setText("Buscar");
+        btnBuscarPorTiempo.setBorderPainted(false);
+        btnBuscarPorTiempo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPorTiempoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBuscarPorTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 150, 191, 50));
+
+        btnPorIngrediente.setBackground(new java.awt.Color(92, 157, 157));
+        btnPorIngrediente.setFont(new java.awt.Font("Segoe UI Emoji", 0, 32)); // NOI18N
+        btnPorIngrediente.setText("Buscar");
+        btnPorIngrediente.setBorderPainted(false);
+        btnPorIngrediente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPorIngredienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPorIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 191, 50));
+
+        btnBuscarPorTipo.setBackground(new java.awt.Color(92, 157, 157));
+        btnBuscarPorTipo.setFont(new java.awt.Font("Segoe UI Emoji", 0, 32)); // NOI18N
+        btnBuscarPorTipo.setText("Buscar");
+        btnBuscarPorTipo.setBorderPainted(false);
+        btnBuscarPorTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPorTipoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBuscarPorTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 150, 191, 50));
+
         btnRegresar.setBackground(new java.awt.Color(92, 157, 157));
         btnRegresar.setFont(new java.awt.Font("Segoe UI Emoji", 0, 32)); // NOI18N
         btnRegresar.setText("Regresar");
         btnRegresar.setBorderPainted(false);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 18, 191, 50));
 
         txtIngredienteF.setBackground(new java.awt.Color(212, 199, 199));
@@ -52,7 +140,7 @@ public class DlgMenuPlatillos extends javax.swing.JDialog {
                 txtIngredienteFActionPerformed(evt);
             }
         });
-        getContentPane().add(txtIngredienteF, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 217, 300, 58));
+        getContentPane().add(txtIngredienteF, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 300, 58));
 
         txtTipoCocina.setBackground(new java.awt.Color(212, 199, 199));
         txtTipoCocina.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
@@ -75,15 +163,16 @@ public class DlgMenuPlatillos extends javax.swing.JDialog {
         getContentPane().add(txtTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1257, 217, 222, 58));
 
         tblPlatillos.setBackground(new java.awt.Color(212, 199, 199));
+        tblPlatillos.setFont(new java.awt.Font("Segoe UI Emoji", 1, 32)); // NOI18N
         tblPlatillos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "", "Nombre", "Ingredientes"
+                "", "Nombre"
             }
         ));
         jScrollPane1.setViewportView(tblPlatillos);
@@ -109,9 +198,108 @@ public class DlgMenuPlatillos extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTipoCocinaActionPerformed
 
-   
+    private void btnBuscarPorTiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPorTiempoActionPerformed
+        try {
+            llenarTabla(control.buscarRecetaDuracion(Integer.valueOf(txtTiempo.getText())));
+        } catch (ValidacionDTOException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error!!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarPorTiempoActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        DlgMenuUsuario menu = new DlgMenuUsuario(this, true, control,usuario);
+        dispose();
+        menu.setVisible(true);
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnPorIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPorIngredienteActionPerformed
+        try {
+            llenarTabla(control.buscarRecetaIngrediente(txtIngredienteF.getText()));
+        } catch (ValidacionDTOException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error!!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPorIngredienteActionPerformed
+
+    private void btnBuscarPorTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPorTipoActionPerformed
+        try {
+            llenarTabla(control.buscarRecetaTipo(txtTipoCocina.getText()));
+        } catch (ValidacionDTOException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error!!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarPorTipoActionPerformed
+
+    private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
+        txtIngredienteF.setText("");
+        txtTiempo.setText("");
+        txtTipoCocina.setText("");
+    }//GEN-LAST:event_btnLimpiarCamposActionPerformed
+
+    public void llenarTabla(List<RecetaDTO> recetas) throws ValidacionDTOException {
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        // Columna para las imágenes y el nombre de las recetas
+        modelo.addColumn("Imagen");
+        modelo.addColumn("Nombre");
+
+        for (RecetaDTO receta : recetas) {
+            // Obtener la imagen automáticamente según el nombre de la receta
+            ImageIcon imagenOriginal = ImageLoader.obtenerImagen(receta.getNombre());
+
+            // Escalar la imagen a un tamaño adecuado (por ejemplo, 50x50 píxeles)
+            Image imagenEscalada = imagenOriginal.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+            ImageIcon imagen = new ImageIcon(imagenEscalada);  // Crear un nuevo ImageIcon con la imagen escalada
+
+            Object[] fila = new Object[]{
+                imagen, // Imagen obtenida automáticamente
+                receta.getNombre() 
+            };
+
+            modelo.addRow(fila);
+        }
+
+        tblPlatillos.setModel(modelo);
+
+        // Establecer el TableCellRenderer personalizado para la columna de imágenes
+        TableColumnModel columnModel = tblPlatillos.getColumnModel();
+        columnModel.getColumn(0).setCellRenderer(new ImageRender());  // Renderer para la columna de imágenes
+
+        // Ajustar ancho de la columna de la imagen (opcional)
+        columnModel.getColumn(0).setPreferredWidth(60);
+        
+         tblPlatillos.setRowHeight(80);
+        
+    }
+    
+    // Método para mostrar los detalles de la receta seleccionada
+    private void mostrarDetallesReceta() {
+        int filaSeleccionada = tblPlatillos.getSelectedRow();
+
+        if (filaSeleccionada >= 0) {
+            // Obtener el nombre de la receta desde la columna "Nombre"
+            String nombreReceta = (String) tblPlatillos.getValueAt(filaSeleccionada, 1);
+
+            // Buscar la receta completa usando el nombre
+            RecetaDTO recetaSeleccionada;
+            try {
+                recetaSeleccionada = control.obtenerReceta(new RecetaDTO(nombreReceta));
+                // Crear y mostrar el nuevo diálogo con la receta seleccionada
+                DlgReceta dlg = new DlgReceta(this, true, control, recetaSeleccionada, usuario, ConstantesGUI.NORMAL);
+                dispose();
+                dlg.setVisible(true);
+            } catch (ValidacionDTOException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error!!", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una receta", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarPorTiempo;
+    private javax.swing.JButton btnBuscarPorTipo;
+    private javax.swing.JButton btnLimpiarCampos;
+    private javax.swing.JButton btnPorIngrediente;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

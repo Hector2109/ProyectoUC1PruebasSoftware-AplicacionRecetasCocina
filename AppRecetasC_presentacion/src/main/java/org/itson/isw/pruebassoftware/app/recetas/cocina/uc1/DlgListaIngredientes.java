@@ -4,18 +4,37 @@
  */
 package org.itson.isw.pruebassoftware.app.recetas.cocina.uc1;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import org.itson.arquitecturasoftware.apprecetasc_bo_Control.ControlBO;
+import org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException;
+import org.itson.arquitecturasoftware.apprecetasc_dto.IngredienteDTO;
+import org.itson.arquitecturasoftware.apprecetasc_dto.UsuarioDTO;
+
 /**
  *
  * @author Dell
  */
 public class DlgListaIngredientes extends javax.swing.JDialog {
 
+    private ControlBO control;
+    private UsuarioDTO usuario;
+    
     /**
      * Creates new form DlgListaIngredientes
      */
-    public DlgListaIngredientes(java.awt.Frame parent, boolean modal) {
+    public DlgListaIngredientes(java.awt.Dialog parent, boolean modal, ControlBO control, UsuarioDTO usuario) {
         super(parent, modal);
+        this.control = control;
+        this.usuario = usuario;
         initComponents();
+        try {
+            llenarTabla();
+        } catch (ValidacionDTOException ex) {
+            
+        }
     }
 
     /**
@@ -29,9 +48,9 @@ public class DlgListaIngredientes extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListaIngredientes = new javax.swing.JTable();
-        btnVaciarLista = new javax.swing.JButton();
-        btnIngredientesPorReceta = new javax.swing.JButton();
         btnRegresar1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -54,26 +73,23 @@ public class DlgListaIngredientes extends javax.swing.JDialog {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 1440, 600));
 
-        btnVaciarLista.setBackground(new java.awt.Color(92, 157, 157));
-        btnVaciarLista.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnVaciarLista.setText("Vaciar lista");
-        btnVaciarLista.setBorder(null);
-        btnVaciarLista.setBorderPainted(false);
-        getContentPane().add(btnVaciarLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 760, 230, 60));
-
-        btnIngredientesPorReceta.setBackground(new java.awt.Color(92, 157, 157));
-        btnIngredientesPorReceta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnIngredientesPorReceta.setText("Ingredientes por receta");
-        btnIngredientesPorReceta.setBorder(null);
-        btnIngredientesPorReceta.setBorderPainted(false);
-        getContentPane().add(btnIngredientesPorReceta, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 763, 440, 60));
-
         btnRegresar1.setBackground(new java.awt.Color(92, 157, 157));
         btnRegresar1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnRegresar1.setText("Regresar");
         btnRegresar1.setBorder(null);
         btnRegresar1.setBorderPainted(false);
-        getContentPane().add(btnRegresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 760, 230, 60));
+        btnRegresar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresar1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 750, 230, 60));
+
+        jPanel2.setBackground(new java.awt.Color(245, 245, 220));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 750, 480, 90));
+
+        jPanel1.setBackground(new java.awt.Color(245, 245, 220));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 750, 480, 90));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/listaIngredientes.png"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1772, -1));
@@ -82,13 +98,49 @@ public class DlgListaIngredientes extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-   
+    private void btnRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar1ActionPerformed
+        DlgMenuUsuario menuPrincipal = new DlgMenuUsuario(this, true, control, usuario);
+        dispose();
+        menuPrincipal.setVisible(true);
+    }//GEN-LAST:event_btnRegresar1ActionPerformed
+
+   public void llenarTabla() throws ValidacionDTOException {
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        // Columna para las imágenes y el nombre de las recetas
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Unidad");
+
+        for (IngredienteDTO ingrediente : control.obtenerIngrediente(usuario)) {
+            
+
+            Object[] fila = new Object[]{
+                ingrediente.getNombre(),
+                ingrediente.getCantidad(),
+                ingrediente.getTipoCantidad()
+            };
+
+            modelo.addRow(fila);
+        }
+
+        tblListaIngredientes.setModel(modelo);
+
+        // Establecer el TableCellRenderer personalizado para la columna de imágenes
+        TableColumnModel columnModel = tblListaIngredientes.getColumnModel();
+
+        // Ajustar ancho de la columna de la imagen (opcional)
+        columnModel.getColumn(0).setPreferredWidth(60);
+        
+         tblListaIngredientes.setRowHeight(80);
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIngredientesPorReceta;
     private javax.swing.JButton btnRegresar1;
-    private javax.swing.JButton btnVaciarLista;
     private javax.swing.JLabel fondo;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblListaIngredientes;
     // End of variables declaration//GEN-END:variables

@@ -52,4 +52,6 @@ public interface IRecetaDAO {
     LinkedList <Receta> buscarRecetaTipo (String tipo);
     
     LinkedList <Receta> buscarRecetaTiempo (int minutos);
+    
+    LinkedList <Receta> buscarRecetaIngrediente (String ingrediente);
 }

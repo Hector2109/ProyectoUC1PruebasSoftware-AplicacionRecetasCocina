@@ -62,4 +62,6 @@ public interface IRecetaBO {
     LinkedList <RecetaDTO> buscarRecetaTipo (String tipo);
     
     LinkedList <RecetaDTO> buscarRecetaDuracion (int minutos);
+    
+    LinkedList <RecetaDTO> buscarRecetaIngrediente (String ingrediente);
 }

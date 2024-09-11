@@ -69,10 +69,11 @@ public class UsuarioDAO implements IUsuarioDAO{
     @Override
     public Usuario eliminarRecetaFav(Receta receta, Usuario usuario) throws DAOException{
         usuario = obtenerUsuario(usuario);
+        LinkedList<Receta> recetas = usuario.getRecetasFav();
         
-        if (!usuario.getRecetasFav().contains(receta)){
-            usuario.getRecetasFav().remove(receta);
-            usuariosBD.getUsuarios().set(usuariosBD.getUsuarios().indexOf(usuario), usuario);
+        if (recetas.contains(receta)){
+            recetas.remove(receta);
+            usuario.getIngredientes().removeAll(receta.getIngredientes());
             return usuario;
         }
         
@@ -107,7 +108,7 @@ public class UsuarioDAO implements IUsuarioDAO{
         usuario = obtenerUsuario(usuario);
         LinkedList<Receta> recetas = usuario.getRecetasGuardadas();
         
-        if (!recetas.contains(receta)){
+        if (recetas.contains(receta)){
             recetas.remove(receta);
             usuario.getIngredientes().removeAll(receta.getIngredientes());
             return usuario;

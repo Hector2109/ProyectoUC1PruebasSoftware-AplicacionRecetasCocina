@@ -33,6 +33,9 @@ public class RecetaDTO {
         this.ingredientes = ingredientes;
     }
     
+    public RecetaDTO(String nombre) {
+        this.nombre = nombre;
+    }
 
     /**
      * Retorna nombre de la receta

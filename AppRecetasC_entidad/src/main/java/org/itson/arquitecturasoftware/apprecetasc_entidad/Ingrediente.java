@@ -95,7 +95,7 @@ public class Ingrediente {
             return false;
         }
         final Ingrediente other = (Ingrediente) obj;
-        return Objects.equals(this.nombre, other.nombre);
+        return this.nombre.equalsIgnoreCase(other.nombre);
     }
     
     

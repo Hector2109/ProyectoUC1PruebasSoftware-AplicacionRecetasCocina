@@ -34,6 +34,11 @@ public class UsuarioDTO {
         
     }
 
+    public UsuarioDTO(String correo, String contrasenia) {
+        this.correo = correo;
+        this.contrasenia = contrasenia;  
+    }
+    
     /**
      * Retorna correo del UsuarioDTO
      * @return correo del UsuarioDTO
