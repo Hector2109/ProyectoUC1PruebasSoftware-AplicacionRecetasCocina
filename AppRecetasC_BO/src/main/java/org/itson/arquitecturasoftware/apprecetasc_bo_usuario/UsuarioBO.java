@@ -7,6 +7,7 @@ package org.itson.arquitecturasoftware.apprecetasc_bo_usuario;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException;
 import org.itson.arquitecturasoftware.apprecetasc_dao_Exception.DAOException;
 import org.itson.arquitecturasoftware.apprecetasc_dao_usuario.UsuarioDAO;
 import org.itson.arquitecturasoftware.apprecetasc_dto.IngredienteDTO;
@@ -111,40 +112,74 @@ public class UsuarioBO implements IUsuarioBO{
      * {@inheritDoc}     * 
      */
     @Override
-    public UsuarioDTO anadiirRecetaFav(RecetaDTO receta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public UsuarioDTO anadirRecetaFav(RecetaDTO receta, UsuarioDTO usuario)  throws ValidacionDTOException{
+        
+        LinkedList<Paso> pasos = new LinkedList<>();
+        
+        for (PasoDTO pasoDTO : receta.getPasos()) {
+            Paso paso = new Paso(
+                    pasoDTO.getNumero(), 
+                    pasoDTO.getDescripcion()
+            );
+            pasos.add(paso);
+        }
+        
+        LinkedList<Ingrediente> ingredientes = new LinkedList<>();
+        
+        for (IngredienteDTO ingredienteDTO : receta.getIngredientes()) {
+            Ingrediente ingrediente = new Ingrediente(
+                    ingredienteDTO.getTipoCantidad(), 
+                    ingredienteDTO.getCantidad(), 
+                    ingredienteDTO.getTipoCantidad()
+            );
+            ingredientes.add(ingrediente);
+        }
+        
+        Receta recetaE = new Receta(
+                receta.getNombre(), 
+                receta.getDuracion(), 
+                receta.getTipo(), 
+                pasos, 
+                ingredientes
+        );
 
-    /**
-     * {@inheritDoc}     * 
-     */
-    @Override
-    public UsuarioDTO anadirCarrito(RecetaDTO receta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    /**
-     * {@inheritDoc}     * 
-     */
-    @Override
-    public UsuarioDTO eliminarRecetaFav(RecetaDTO receta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    /**
-     * {@inheritDoc}     * 
-     */
-    @Override
-    public UsuarioDTO anadirRecetaGuardada(RecetaDTO receta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    /**
-     * {@inheritDoc}     * 
-     */
-    @Override
-    public UsuarioDTO eliminarRecetaGuardada(RecetaDTO receta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        try {
+            usuarioDAO.anadiirRecetaFav(recetaE, new Usuario (usuario.getCorreo()));
+            return obtenerUsuario(usuario);
+        } catch (DAOException ex) {
+            throw new ValidacionDTOException (ex.getMessage());
+        }
     }
     
+
+    /**
+     * {@inheritDoc}     * 
+     */
+    @Override
+    public UsuarioDTO eliminarRecetaFav(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException{
+        try {
+            Usuario usuarioE = usuarioDAO.eliminarRecetaFav(new Receta(receta.getNombre()), new Usuario(usuario.getCorreo()));
+            return obtenerUsuario(usuario);
+        } catch (DAOException ex) {
+            throw new ValidacionDTOException (ex.getMessage());
+        }
+    }
+
+    /**
+     * {@inheritDoc}     * 
+     */
+    @Override
+    public UsuarioDTO anadirRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    /**
+     * {@inheritDoc}     * 
+     */
+    @Override
+    public UsuarioDTO eliminarRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

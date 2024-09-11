@@ -45,7 +45,14 @@ public class Receta {
         this.pasos = pasos;
         this.ingredientes = ingredientes;
     }
-    
+
+    /** 
+     * Cosntructo de objeto rectea, que solo recibe el nombre.
+     * @param nombre nombre de la receta.
+     */
+    public Receta(String nombre) {
+        this.nombre = nombre;
+    }
 
     /**
      * Retorna nombre de la receta

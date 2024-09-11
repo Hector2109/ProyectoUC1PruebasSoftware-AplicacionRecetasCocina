@@ -67,21 +67,6 @@ public class UsuarioDAO implements IUsuarioDAO{
      * {@inheritDoc}
      */
     @Override
-    public Usuario anadirCarrito(Receta receta, Usuario usuario) throws DAOException{
-        
-        usuario = obtenerUsuario(usuario);
-        LinkedList <Ingrediente> ingredientes = usuario.getIngredientes();
-        ingredientes.addAll(receta.getIngredientes());
-        usuario.setIngredientes(ingredientes);
-        usuariosBD.getUsuarios().set(usuariosBD.getUsuarios().indexOf(usuario), usuario);
-        return usuario;
-        
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Usuario eliminarRecetaFav(Receta receta, Usuario usuario) throws DAOException{
         usuario = obtenerUsuario(usuario);
         
@@ -107,7 +92,6 @@ public class UsuarioDAO implements IUsuarioDAO{
             recetas.add(receta);
             usuario.setRecetasGuardadas(recetas);
             usuariosBD.getUsuarios().set(usuariosBD.getUsuarios().indexOf(usuario), usuario);
-            anadirCarrito(receta, usuario);
             return usuario;
         }
         

@@ -28,13 +28,6 @@ public interface IUsuarioDAO {
     Usuario anadiirRecetaFav(Receta receta, Usuario usuario)throws DAOException;
     
     /**
-     * Añade la lista de ingredientes de una receta al carrito del usuario
-     * @param receta receta del que se desea añadir ingredientes al carro
-     * @return usuario al que se le añaden los ingredeintes
-     */
-    Usuario anadirCarrito(Receta receta, Usuario usuario)throws DAOException;
-    
-    /**
      * Elimina una receta de ls lista de favoritos del usuario
      * @param receta receta para eliminar
      * @return usuario al qaue se le elimino la receta

@@ -36,6 +36,16 @@ public class Usuario {
     }
 
     /**
+     * Constructor que inicializa un usuario con su correo
+     * @param correo correo usuario
+     */
+    public Usuario(String correo) {
+        this.correo = correo;
+    }
+    
+    
+
+    /**
      * Retorna correo del usuario
      * @return correo del usuario
      */

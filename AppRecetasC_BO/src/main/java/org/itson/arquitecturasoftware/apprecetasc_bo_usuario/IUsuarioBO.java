@@ -4,6 +4,7 @@
  */
 package org.itson.arquitecturasoftware.apprecetasc_bo_usuario;
 
+import org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException;
 import org.itson.arquitecturasoftware.apprecetasc_dto.RecetaDTO;
 import org.itson.arquitecturasoftware.apprecetasc_dto.UsuarioDTO;
 
@@ -30,23 +31,15 @@ public interface IUsuarioBO {
      * @param receta receta a añadir
      * @return usuario al que se añadio receta
      */
-    UsuarioDTO anadiirRecetaFav(RecetaDTO receta);
-
-    /**
-     * Añade la lista de ingredientes de una receta al carrito del usuario
-     *
-     * @param receta receta del que se desea añadir ingredientes al carro
-     * @return usuario al que se le añaden los ingredeintes
-     */
-    UsuarioDTO anadirCarrito(RecetaDTO receta);
-
+    UsuarioDTO anadirRecetaFav(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException;
+    
     /**
      * Elimina una receta de ls lista de favoritos del usuario
      *
      * @param receta receta para eliminar
      * @return usuario al qaue se le elimino la receta
      */
-    UsuarioDTO eliminarRecetaFav(RecetaDTO receta);
+    UsuarioDTO eliminarRecetaFav(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException;
 
     /**
      * Añade una receta a los guardados del usuario
@@ -54,7 +47,7 @@ public interface IUsuarioBO {
      * @param receta receta a guardar
      * @return Usuario al que se añadio la receta
      */
-    UsuarioDTO anadirRecetaGuardada(RecetaDTO receta);
+    UsuarioDTO anadirRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario);
 
     /**
      * Elimina una receta guardada del usuario
@@ -62,6 +55,6 @@ public interface IUsuarioBO {
      * @param receta receta a eliminar
      * @return usuario al que se le elimino la receta
      */
-    UsuarioDTO eliminarRecetaGuardada(RecetaDTO receta);
+    UsuarioDTO eliminarRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario);
 
 }
