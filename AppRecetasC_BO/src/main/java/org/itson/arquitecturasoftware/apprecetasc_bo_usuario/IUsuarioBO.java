@@ -23,7 +23,7 @@ public interface IUsuarioBO {
      * @param usuario usuario que se desea obtener
      * @return usuario
      */
-    UsuarioDTO obtenerUsuario(UsuarioDTO usuario);
+    UsuarioDTO obtenerUsuario(UsuarioDTO usuario) throws ValidacionDTOException;
 
     /**
      * Añade una receta a favoritos

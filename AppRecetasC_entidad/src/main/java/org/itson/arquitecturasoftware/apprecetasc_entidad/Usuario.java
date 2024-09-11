@@ -33,6 +33,16 @@ public class Usuario {
         recetasFav = new LinkedList<>();
         recetasGuardadas = new LinkedList<>();
         ingredientes = new LinkedList<>();
+    } 
+    
+    /**
+     * Constructor que inicializa un usuario con su correo y contrasenia.
+     * @param correo correo del usuario.
+     * @param contrasenia contrasenia del usuario.
+     */
+    public Usuario(String correo, String contrasenia) {
+        this.correo = correo;
+        this.contrasenia = contrasenia;
     }
 
     /**

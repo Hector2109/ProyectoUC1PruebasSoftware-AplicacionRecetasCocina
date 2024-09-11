@@ -38,74 +38,67 @@ public class UsuarioBO implements IUsuarioBO{
      * {@inheritDoc}     * 
      */
     @Override
-    public UsuarioDTO obtenerUsuario(UsuarioDTO usuario) {
-        Usuario user = new Usuario(
-                usuario.getCorreo(), 
-                usuario.getContrasenia(), 
-                usuario.getNombre()
-        );
-        
+    public UsuarioDTO obtenerUsuario(UsuarioDTO usuario) throws ValidacionDTOException{
         try {
-            usuarioDAO.obtenerUsuario(user);
+            Usuario user = usuarioDAO.obtenerUsuario(new Usuario(usuario.getCorreo(), usuario.getContrasenia()));
+            LinkedList<RecetaDTO> recetasEncontradas = new LinkedList<>();
+
+            for (Receta receta : user.getRecetasFav()) {
+                LinkedList<PasoDTO> pasosEncontrados = new LinkedList<>();
+                LinkedList<IngredienteDTO> ingredientesEncontrados = new LinkedList<>();
+
+                for (Paso paso : receta.getPasos()) {
+                    pasosEncontrados.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
+                }
+
+                for (Ingrediente ingrediente : receta.getIngredientes()) {
+                    ingredientesEncontrados.add(new IngredienteDTO(ingrediente.getNombre(), ingrediente.getCantidad(), ingrediente.getTipoCantidad()));
+                }
+
+                RecetaDTO recetaDTO = new RecetaDTO(
+                        receta.getNombre(),
+                        receta.getDuracion(),
+                        receta.getTipo(),
+                        pasosEncontrados,
+                        ingredientesEncontrados
+                );
+
+                recetasEncontradas.add(recetaDTO);
+            }
+
+            LinkedList<RecetaDTO> recetasGuardadasE = new LinkedList<>();
+
+            for (Receta receta : user.getRecetasGuardadas()) {
+                LinkedList<PasoDTO> pasosEncontradosG = new LinkedList<>();
+                LinkedList<IngredienteDTO> ingredientesEncontradosG = new LinkedList<>();
+
+                for (Paso paso : receta.getPasos()) {
+                    pasosEncontradosG.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
+                }
+
+                for (Ingrediente ingrediente : receta.getIngredientes()) {
+                    ingredientesEncontradosG.add(new IngredienteDTO(ingrediente.getNombre(), ingrediente.getCantidad(), ingrediente.getTipoCantidad()));
+                }
+
+                RecetaDTO recetaDTO = new RecetaDTO(
+                        receta.getNombre(),
+                        receta.getDuracion(),
+                        receta.getTipo(),
+                        pasosEncontradosG,
+                        ingredientesEncontradosG
+                );
+
+                recetasEncontradas.add(recetaDTO);
+            }
+
+            usuario.setRecetasFav(recetasEncontradas);
+            usuario.setRecetasGuardadas(recetasGuardadasE);
+            usuario.setNombre(user.getNombre());
+            
+            return usuario;
         } catch (DAOException ex) {
-            Logger.getLogger(UsuarioBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ValidacionDTOException (ex.getMessage());
         }
-        
-        LinkedList<RecetaDTO> recetasEncontradas = new LinkedList<>();
-        
-        for (Receta receta : user.getRecetasFav()) {
-            LinkedList<PasoDTO> pasosEncontrados = new LinkedList<>();
-            LinkedList<IngredienteDTO> ingredientesEncontrados = new LinkedList<>();
-            
-            for (Paso paso : receta.getPasos()) {
-                pasosEncontrados.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
-            }
-            
-            for (Ingrediente ingrediente : receta.getIngredientes()) {
-                ingredientesEncontrados.add(new IngredienteDTO(ingrediente.getNombre(),ingrediente.getCantidad(),ingrediente.getTipoCantidad()));
-            }
-            
-            
-            RecetaDTO recetaDTO = new RecetaDTO(
-                    receta.getNombre(), 
-                    receta.getDuracion(), 
-                    receta.getTipo(),
-                    pasosEncontrados,
-                    ingredientesEncontrados
-            );
-            
-            recetasEncontradas.add(recetaDTO);
-        }
-        
-        LinkedList<RecetaDTO> recetasGuardadasE = new LinkedList<>();
-        
-        for (Receta receta : user.getRecetasGuardadas()) {
-            LinkedList<PasoDTO> pasosEncontradosG = new LinkedList<>();
-            LinkedList<IngredienteDTO> ingredientesEncontradosG = new LinkedList<>();
-            
-            for (Paso paso : receta.getPasos()) {
-                pasosEncontradosG.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
-            }
-            
-            for (Ingrediente ingrediente : receta.getIngredientes()) {
-                ingredientesEncontradosG.add(new IngredienteDTO(ingrediente.getNombre(),ingrediente.getCantidad(),ingrediente.getTipoCantidad()));
-            }
-            
-            RecetaDTO recetaDTO = new RecetaDTO(
-                    receta.getNombre(), 
-                    receta.getDuracion(), 
-                    receta.getTipo(), 
-                    pasosEncontradosG,
-                    ingredientesEncontradosG
-            );
-            
-            recetasEncontradas.add(recetaDTO);
-        }
-        
-        usuario.setRecetasFav(recetasEncontradas);
-        usuario.setRecetasGuardadas(recetasGuardadasE);
-        
-        return usuario;
     }
 
     /**
