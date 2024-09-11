@@ -175,8 +175,33 @@ public class ControlBO {
         }
     }
     
+    public LinkedList <RecetaDTO> obtenerRecetas()throws ValidacionDTOException{
+        try {
+            return recetaBO.obtenerRecetas();
+        } catch (ValidacionDTOException ex) {
+            throw new ValidacionDTOException (ex.getMessage());
+        }
+    }
     
     
+    public LinkedList <RecetaDTO> buscarRecetaNombre(String nombre){
+        
+        return recetaBO.buscarRecetaNombre(nombre);
+        
+    }
+    
+    
+    public LinkedList <RecetaDTO> buscarRecetaTipo(String tipo){
+        
+        return recetaBO.buscarRecetaTipo(tipo);
+        
+    }
+    
+    public LinkedList <RecetaDTO> buscarRecetaDuracion(int minutos){
+        
+        return recetaBO.buscarRecetaDuracion(minutos);
+        
+    }
     
     
     

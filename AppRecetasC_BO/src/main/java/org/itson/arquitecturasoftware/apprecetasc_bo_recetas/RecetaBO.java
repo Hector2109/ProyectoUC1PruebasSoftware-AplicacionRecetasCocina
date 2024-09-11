@@ -1,6 +1,8 @@
 package org.itson.arquitecturasoftware.apprecetasc_bo_recetas;
 
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException;
 import org.itson.arquitecturasoftware.apprecetasc_dao_Exception.DAOException;
 import org.itson.arquitecturasoftware.apprecetasc_dao_recetas.RecetaDAO;
@@ -225,6 +227,68 @@ public class RecetaBO implements IRecetaBO{
             recetasEncontradas.add(receta);
         }
         return recetasEncontradas;
+    }
+
+    private LinkedList <RecetaDTO> recetaEntidadADTO(LinkedList <Receta> recetas){
+        
+        LinkedList <RecetaDTO> recetasDTO = new LinkedList<>();
+        
+        for (Receta receta: recetas) {
+            
+            LinkedList <PasoDTO> pasosDTO = new LinkedList<>();
+            
+            for (Paso paso: receta.getPasos()) {
+                pasosDTO.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
+            }
+            
+            LinkedList <IngredienteDTO> ingredienteDTO = new LinkedList<>();
+            
+            for (Ingrediente ingrediente: receta.getIngredientes()) {
+                ingredienteDTO.add(new IngredienteDTO(ingrediente.getNombre(), 
+                        ingrediente.getCantidad(), 
+                        ingrediente.getTipoCantidad()));
+            }
+            
+            recetasDTO.add(new RecetaDTO(receta.getNombre(), 
+                    receta.getDuracion(), 
+                    receta.getTipo(), 
+                    pasosDTO, 
+                    ingredienteDTO));
+            
+        }
+        
+        return recetasDTO;
+        
+        
+    }
+    
+    
+    @Override
+    public LinkedList<RecetaDTO> obtenerRecetas() throws ValidacionDTOException{
+        try {
+            return recetaEntidadADTO (recetaDAO.obtenerRecetas());
+        } catch (DAOException ex) {
+            throw new ValidacionDTOException (ex.getMessage());
+        }
+    }
+
+    @Override
+    public LinkedList<RecetaDTO> buscarRecetaNombre(String nombre) {
+        
+        return recetaEntidadADTO(recetaDAO.buscarRecetaNombre(nombre));
+        
+    }
+
+    @Override
+    public LinkedList<RecetaDTO> buscarRecetaTipo(String tipo) {
+        
+        return recetaEntidadADTO(recetaDAO.buscarRecetaTipo(tipo));
+        
+    }
+
+    @Override
+    public LinkedList<RecetaDTO> buscarRecetaDuracion(int minutos) {
+        return recetaEntidadADTO (recetaDAO.buscarRecetaTiempo(minutos));
     }
       
 }

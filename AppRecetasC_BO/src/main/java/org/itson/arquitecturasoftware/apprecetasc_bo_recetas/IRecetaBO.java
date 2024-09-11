@@ -55,4 +55,11 @@ public interface IRecetaBO {
      */
     LinkedList<PasoDTO> obtenerPasosDeReceta(RecetaDTO receta) throws ValidacionDTOException;
 
+    LinkedList <RecetaDTO> obtenerRecetas() throws ValidacionDTOException;
+    
+    LinkedList <RecetaDTO> buscarRecetaNombre (String nombre);
+    
+    LinkedList <RecetaDTO> buscarRecetaTipo (String tipo);
+    
+    LinkedList <RecetaDTO> buscarRecetaDuracion (int minutos);
 }

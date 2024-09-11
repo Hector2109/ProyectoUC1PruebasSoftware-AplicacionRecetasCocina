@@ -44,4 +44,12 @@ public interface IRecetaDAO {
      * @throws org.itson.arquitecturasoftware.apprecetasc_dao_Exception.DAOException en caso de no encontrar las recetas.
      */
     LinkedList<Receta> obtieneRecetas () throws DAOException;
+    
+    LinkedList <Receta> obtenerRecetas () throws DAOException;
+    
+    LinkedList <Receta> buscarRecetaNombre (String nombre);
+    
+    LinkedList <Receta> buscarRecetaTipo (String tipo);
+    
+    LinkedList <Receta> buscarRecetaTiempo (int minutos);
 }

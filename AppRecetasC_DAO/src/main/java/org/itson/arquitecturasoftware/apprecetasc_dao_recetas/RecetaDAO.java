@@ -1,6 +1,8 @@
 package org.itson.arquitecturasoftware.apprecetasc_dao_recetas;
 
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.itson.arquitecturasoftware.apprecetasc_bdsimulada.Recetas;
 import org.itson.arquitecturasoftware.apprecetasc_bdsimulada.Usuarios;
 import org.itson.arquitecturasoftware.apprecetasc_dao_Exception.DAOException;
@@ -93,6 +95,82 @@ public class RecetaDAO implements IRecetaDAO {
             throw new DAOException("Error: No se encontró ninguna receta");
         }
     }
+
+    @Override
+    public LinkedList<Receta> obtenerRecetas() throws DAOException {
+        if (recetasBD.getRecetas()!=null){
+            return recetasBD.getRecetas();
+        }else{
+            throw new DAOException ("Error: No hay recetas en la base de datos");
+        }
+    }
+
+    @Override
+    public LinkedList<Receta> buscarRecetaNombre(String nombre) {
+        try {
+            LinkedList <Receta> recetas = obtenerRecetas();
+            LinkedList <Receta> recetasNombre = new LinkedList<>();
+            
+            
+            for (Receta receta: recetas) {
+                
+                if (receta.getNombre().equalsIgnoreCase(nombre)){
+                    recetasNombre.add(receta);
+                }
+                
+            }
+            
+            return recetasNombre;
+        } catch (DAOException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public LinkedList<Receta> buscarRecetaTipo(String tipo) {
+        try {
+            LinkedList <Receta> recetas = obtenerRecetas();
+            LinkedList <Receta> recetasTipo = new LinkedList<>();
+            
+            
+            for (Receta receta: recetas) {
+                
+                if (receta.getTipo().equalsIgnoreCase(tipo)){
+                    recetasTipo.add(receta);
+                }
+                
+            }
+            
+            return recetasTipo;
+        } catch (DAOException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public LinkedList<Receta> buscarRecetaTiempo(int minutos) {
+        try {
+            LinkedList <Receta> recetas = obtenerRecetas();
+            LinkedList <Receta> recetasTipo = new LinkedList<>();
+            
+            
+            for (Receta receta: recetas) {
+                
+                if ((receta.getDuracion()<=minutos+5) && (receta.getDuracion()>=minutos-5)){
+                    recetasTipo.add(receta);
+                }
+                
+            }
+            
+            return recetasTipo;
+        } catch (DAOException ex) {
+            return null;
+        }
+    }
+    
+    
+    
+    
     
 
 

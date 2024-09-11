@@ -82,7 +82,7 @@ public class Recetas {
         listaIngredientesPasta.add(new Ingrediente("Perejil picado", 1, "piezas"));
         listaIngredientesPasta.add(new Ingrediente("Sal", 10, "gramos"));
         listaIngredientesPasta.add(new Ingrediente("Pimienta", 10, "gramos"));
-        this.listaRecetas.add(new Receta("Pasta Toro.rar", 30, "Milo Origins", listaPasosPasta, listaIngredientesPasta));
+        this.listaRecetas.add(new Receta("Pasta Toro.rar", 25, "Milo Origins", listaPasosPasta, listaIngredientesPasta));
         
         
         //Ensalada Amy
@@ -101,7 +101,7 @@ public class Recetas {
         listaIngredientesEnsalada.add(new Ingrediente("Aceite de oliva", 10, "mililitros"));
         listaIngredientesEnsalada.add(new Ingrediente("Sal", 10, "gramos"));
         listaIngredientesEnsalada.add(new Ingrediente("Pimienta", 10, "gramos"));
-        this.listaRecetas.add(new Receta("Pizza", 30, "Guasave core", listaPasosEnsalada, listaIngredientesEnsalada));
+        this.listaRecetas.add(new Receta("Pizza", 35, "Guasave core", listaPasosEnsalada, listaIngredientesEnsalada));
         
         
         //Tostadas de Aguacate a la touna
