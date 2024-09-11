@@ -47,7 +47,7 @@ public interface IUsuarioBO {
      * @param receta receta a guardar
      * @return Usuario al que se añadio la receta
      */
-    UsuarioDTO anadirRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario);
+    UsuarioDTO anadirRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException;
 
     /**
      * Elimina una receta guardada del usuario
@@ -55,6 +55,6 @@ public interface IUsuarioBO {
      * @param receta receta a eliminar
      * @return usuario al que se le elimino la receta
      */
-    UsuarioDTO eliminarRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario);
+    UsuarioDTO eliminarRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException;
 
 }

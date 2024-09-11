@@ -159,7 +159,7 @@ public class UsuarioBO implements IUsuarioBO{
     @Override
     public UsuarioDTO eliminarRecetaFav(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException{
         try {
-            Usuario usuarioE = usuarioDAO.eliminarRecetaFav(new Receta(receta.getNombre()), new Usuario(usuario.getCorreo()));
+            usuarioDAO.eliminarRecetaFav(new Receta(receta.getNombre()), new Usuario(usuario.getCorreo()));
             return obtenerUsuario(usuario);
         } catch (DAOException ex) {
             throw new ValidacionDTOException (ex.getMessage());
@@ -170,16 +170,26 @@ public class UsuarioBO implements IUsuarioBO{
      * {@inheritDoc}     * 
      */
     @Override
-    public UsuarioDTO anadirRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public UsuarioDTO anadirRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException{
+        try {
+            usuarioDAO.anadirRecetaGuardada(new Receta(receta.getNombre()), new Usuario(usuario.getCorreo()));
+            return obtenerUsuario(usuario);
+        } catch (DAOException ex) {
+            throw new ValidacionDTOException (ex.getMessage());
+        }
     }
 
     /**
      * {@inheritDoc}     * 
      */
     @Override
-    public UsuarioDTO eliminarRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public UsuarioDTO eliminarRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException{
+        try {
+            usuarioDAO.eliminarRecetaGuardada(new Receta(receta.getNombre()), new Usuario(usuario.getCorreo()));
+            return obtenerUsuario(usuario);
+        } catch (DAOException ex) {
+            throw new ValidacionDTOException (ex.getMessage());
+        }
     }
 
 }
