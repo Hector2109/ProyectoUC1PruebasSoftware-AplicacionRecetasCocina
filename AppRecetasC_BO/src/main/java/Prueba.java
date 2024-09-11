@@ -24,6 +24,8 @@ public class Prueba {
         ControlBO control = new ControlBO();
         
         RecetaDTO receta = new RecetaDTO("Pizza Margarita", 0, null, null, null);
+        RecetaDTO receta2 = new RecetaDTO("Guacamole a la bisu", 0, null, null, null);
+        RecetaDTO receta3 = new RecetaDTO("Pasta Toro.rar", 0, null, null, null);
         
         UsuarioDTO usuario = new UsuarioDTO("betunia@gmail.com", "as", "Vicky");
         
@@ -47,14 +49,34 @@ public class Prueba {
 //            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         try {
-            control.anadirRecetaFav(new UsuarioDTO("betunia@gmail.com", "wachin", "Vicky"), receta);
-            LinkedList <RecetaDTO> recetasDTO;
+            control.anadirRecetaGuardada(new UsuarioDTO("betunia@gmail.com", "wachin", "Vicky"), receta);
+            control.anadirRecetaGuardada(new UsuarioDTO("betunia@gmail.com", "wachin", "Vicky"), receta2);
+            control.anadirRecetaGuardada(new UsuarioDTO("betunia@gmail.com", "wachin", "Vicky"), receta3);
             
-            recetasDTO = control.obtenerRecetasFav(new UsuarioDTO("betunia@gmail.com", "wachin", "Vicky"));
+            LinkedList <IngredienteDTO> ingredientes = control.obtenerIngrediente(new UsuarioDTO("betunia@gmail.com", "wachin", "Vicky"));
             
-            for (int i = 0; i < recetasDTO.size(); i++) {
-                System.out.println(recetasDTO.get(i).getNombre());
+            for (IngredienteDTO ingrediente: ingredientes) {
+                System.out.println(ingrediente.getNombre());
             }
+            
+            
+            
+            
+            
+//            LinkedList <RecetaDTO> recetasDTO;
+//            
+//            recetasDTO = control.obtenerRecetasGuardada(new UsuarioDTO("betunia@gmail.com", "wachin", "Vicky"));
+//            System.out.println("-----Antes------");
+//            for (int i = 0; i < recetasDTO.size(); i++) {
+//                System.out.println(recetasDTO.get(i).getNombre());
+//            }
+//            
+//            control.eliminarRecetaGuardada(new UsuarioDTO("betunia@gmail.com", "wachin", "Vicky"), receta);
+//           
+//            System.out.println("-----Depois------");
+//            for (int i = 0; i < recetasDTO.size(); i++) {
+//                System.out.println(recetasDTO.get(i).getNombre());
+//            }
             
         } catch (ValidacionDTOException ex) {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);

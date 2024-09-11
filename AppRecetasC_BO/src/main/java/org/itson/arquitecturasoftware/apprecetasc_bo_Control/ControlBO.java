@@ -8,6 +8,7 @@ import org.itson.arquitecturasoftware.apprecetasc_bo_recetas.IRecetaBO;
 import org.itson.arquitecturasoftware.apprecetasc_bo_recetas.RecetaBO;
 import org.itson.arquitecturasoftware.apprecetasc_bo_usuario.IUsuarioBO;
 import org.itson.arquitecturasoftware.apprecetasc_bo_usuario.UsuarioBO;
+import org.itson.arquitecturasoftware.apprecetasc_dto.IngredienteDTO;
 import org.itson.arquitecturasoftware.apprecetasc_dto.RecetaDTO;
 import org.itson.arquitecturasoftware.apprecetasc_dto.UsuarioDTO;
 
@@ -40,9 +41,11 @@ public class ControlBO {
      * @throws ValidacionDTOException en caso de no encontrarlo o la contraseña sea incorrecta
      */
     public boolean iniciarSesion (UsuarioDTO usuario)throws ValidacionDTOException{        
+        String contrasenia = usuario.getContrasenia();
         UsuarioDTO usuarioSesion = usuarioBO.obtenerUsuario(usuario);
         if (usuarioSesion!=null){
-            if (usuarioSesion.getContrasenia().equals(usuario.getContrasenia())){
+            String contraseniaSesion = usuarioSesion.getContrasenia();    
+            if (contraseniaSesion.equals(contrasenia)){
                 return true;
             }else{
                 throw new ValidacionDTOException ("Contraseña incorrecta");
@@ -67,7 +70,21 @@ public class ControlBO {
         
         if (usuarioBO.obtenerUsuario(usuario)!=null){
            if (recetaBO.obtenerReceta(receta)!=null){
-               usuarioBO.anadirRecetaFav(receta, usuario);
+               usuarioBO.anadirRecetaFav(obtenerReceta(receta), usuario);
+               return usuario;
+           }else{
+               throw new ValidacionDTOException ("Receta no encontrada");
+           } 
+        }
+        throw new ValidacionDTOException ("Usuario no encontrado");
+        
+    }
+    
+    public UsuarioDTO eliminarRecetaFavorita (UsuarioDTO usuario, RecetaDTO receta) throws ValidacionDTOException{
+        
+        if (usuarioBO.obtenerUsuario(usuario)!=null){
+           if (recetaBO.obtenerReceta(receta)!=null){
+               usuarioBO.eliminarRecetaFav(obtenerReceta(receta), usuario);
                return usuario;
            }else{
                throw new ValidacionDTOException ("Receta no encontrada");
@@ -80,13 +97,27 @@ public class ControlBO {
     public UsuarioDTO anadirRecetaGuardada (UsuarioDTO usuario, RecetaDTO receta) throws ValidacionDTOException{
         if (usuarioBO.obtenerUsuario(usuario)!=null){
            if (recetaBO.obtenerReceta(receta)!=null){
-               usuarioBO.anadirRecetaGuardada(receta, usuario);
+               usuarioBO.anadirRecetaGuardada(obtenerReceta(receta), usuario);
                return usuario;
            }else{
                throw new ValidacionDTOException ("Receta no encontrada");
            } 
         }
         throw new ValidacionDTOException ("Usuario no encontrado");
+    }
+    
+    public UsuarioDTO eliminarRecetaGuardada (UsuarioDTO usuario, RecetaDTO receta) throws ValidacionDTOException{
+        
+        if (usuarioBO.obtenerUsuario(usuario)!=null){
+           if (recetaBO.obtenerReceta(receta)!=null){
+               usuarioBO.eliminarRecetaGuardada(obtenerReceta(receta), usuario);
+               return usuario;
+           }else{
+               throw new ValidacionDTOException ("Receta no encontrada");
+           } 
+        }
+        throw new ValidacionDTOException ("Usuario no encontrado");
+        
     }
     
     /**
@@ -105,25 +136,45 @@ public class ControlBO {
         
     }
     
-    public LinkedList <RecetaDTO> obtenerRecetasFav (UsuarioDTO usuaro) throws ValidacionDTOException{
+    public LinkedList <RecetaDTO> obtenerRecetasFav (UsuarioDTO usuario) throws ValidacionDTOException{
         
         try {
-            return recetaBO.obtieneRecetasFav(usuaro);
+            usuario = usuarioBO.obtenerUsuario(usuario);
+            return recetaBO.obtieneRecetasFav(usuario);
         } catch (ValidacionDTOException ex) {
             throw new ValidacionDTOException (ex.getMessage());
         }
         
     }
     
-    public LinkedList <RecetaDTO> obtenerRecetasGuardada (UsuarioDTO usuaro) throws ValidacionDTOException{
+    public LinkedList <RecetaDTO> obtenerRecetasGuardada (UsuarioDTO usuario) throws ValidacionDTOException{
         
         try {
-            return recetaBO.obtieneRecetasGuardadas(usuaro);
+            return recetaBO.obtieneRecetasGuardadas(usuarioBO.obtenerUsuario(usuario));
         } catch (ValidacionDTOException ex) {
             throw new ValidacionDTOException (ex.getMessage());
         }
         
     }
+    
+    
+    public LinkedList <IngredienteDTO> obtenerIngrediente (UsuarioDTO usuario)throws ValidacionDTOException{
+        try {
+            LinkedList <RecetaDTO> recetasGuardadas = obtenerRecetasGuardada(usuario);
+            LinkedList <IngredienteDTO> ingredientes = new LinkedList<>();
+            
+            for (RecetaDTO receta: recetasGuardadas) {
+                
+                ingredientes.addAll(receta.getIngredientes());
+                
+            }
+            
+            return ingredientes;
+        } catch (ValidacionDTOException ex) {
+            throw new ValidacionDTOException ("No hay recetas guardadas");
+        }
+    }
+    
     
     
     

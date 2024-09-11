@@ -84,7 +84,9 @@ public class RecetaBO implements IRecetaBO{
         Usuario user = new Usuario(
                 usuario.getCorreo(),
                 usuario.getContrasenia(),
-                usuario.getNombre()
+                usuario.getNombre(),
+                recetasDTOAEntidad(usuario.getRecetasGuardadas()),
+                "guardadas"
         );
 
         LinkedList<RecetaDTO> recetasGuardadasDTO = new LinkedList<>();
@@ -130,10 +132,11 @@ public class RecetaBO implements IRecetaBO{
      */
     @Override
     public LinkedList<RecetaDTO> obtieneRecetasFav(UsuarioDTO usuario) throws ValidacionDTOException {
-        Usuario user = new Usuario(
-                usuario.getCorreo(),
-                usuario.getContrasenia(),
-                usuario.getNombre()
+        Usuario user = new Usuario(usuario.getCorreo(), 
+                usuario.getContrasenia(), 
+                usuario.getNombre(), 
+                recetasDTOAEntidad(usuario.getRecetasFav()),
+                "favoritas"
         );
 
         LinkedList<RecetaDTO> recetasFavDTO = new LinkedList<>();
@@ -187,6 +190,41 @@ public class RecetaBO implements IRecetaBO{
         } catch (ValidacionDTOException ex) {
             throw new ValidacionDTOException("No hay recetas favoritas.");
         }
+    }
+    
+    /**
+     * Metodo que se encarga de convertir una lista de recetasDTO a recetas
+     * entidad.
+     *
+     * @param recetasDTO lista de recetasDTO.
+     * @return lista de recetas entidas.
+     */
+    private LinkedList<Receta> recetasDTOAEntidad(LinkedList<RecetaDTO> recetasDTO) {
+        LinkedList<Receta> recetasEncontradas = new LinkedList<>();
+
+        for (RecetaDTO recetaDTO : recetasDTO) {
+            LinkedList<Paso> pasosEncontrados = new LinkedList<>();
+            LinkedList<Ingrediente> ingredientesEncontrados = new LinkedList<>();
+
+            for (PasoDTO pasoDTO : recetaDTO.getPasos()) {
+                pasosEncontrados.add(new Paso(pasoDTO.getNumero(), pasoDTO.getDescripcion()));
+            }
+
+            for (IngredienteDTO ingredienteDTO : recetaDTO.getIngredientes()) {
+                ingredientesEncontrados.add(new Ingrediente(ingredienteDTO.getNombre(), ingredienteDTO.getCantidad(), ingredienteDTO.getTipoCantidad()));
+            }
+
+            Receta receta = new Receta(
+                    recetaDTO.getNombre(),
+                    recetaDTO.getDuracion(),
+                    recetaDTO.getTipo(),
+                    pasosEncontrados,
+                    ingredientesEncontrados
+            );
+
+            recetasEncontradas.add(receta);
+        }
+        return recetasEncontradas;
     }
       
 }

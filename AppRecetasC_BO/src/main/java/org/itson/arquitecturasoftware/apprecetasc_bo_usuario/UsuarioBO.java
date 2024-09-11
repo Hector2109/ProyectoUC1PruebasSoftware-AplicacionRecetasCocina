@@ -88,12 +88,14 @@ public class UsuarioBO implements IUsuarioBO{
                         ingredientesEncontradosG
                 );
 
-                recetasEncontradas.add(recetaDTO);
+                recetasGuardadasE.add(recetaDTO);
             }
 
             usuario.setRecetasFav(recetasEncontradas);
             usuario.setRecetasGuardadas(recetasGuardadasE);
             usuario.setNombre(user.getNombre());
+            usuario.setContrasenia(user.getContrasenia());
+            usuario.setCorreo(user.getCorreo());
             
             return usuario;
         } catch (DAOException ex) {
@@ -107,7 +109,7 @@ public class UsuarioBO implements IUsuarioBO{
     @Override
     public UsuarioDTO anadirRecetaFav(RecetaDTO receta, UsuarioDTO usuario)  throws ValidacionDTOException{
         try {
-            usuarioDAO.anadiirRecetaFav(new Receta(receta.getNombre()), new Usuario (usuario.getCorreo()));
+            usuarioDAO.anadiirRecetaFav(recetaDTOAEntidad(receta), new Usuario (usuario.getCorreo()));
             return obtenerUsuario(usuario);
         } catch (DAOException ex) {
             throw new ValidacionDTOException (ex.getMessage());
@@ -121,7 +123,7 @@ public class UsuarioBO implements IUsuarioBO{
     @Override
     public UsuarioDTO eliminarRecetaFav(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException{
         try {
-            usuarioDAO.eliminarRecetaFav(new Receta(receta.getNombre()), new Usuario(usuario.getCorreo()));
+            usuarioDAO.eliminarRecetaFav(recetaDTOAEntidad(receta), new Usuario(usuario.getCorreo()));
             return obtenerUsuario(usuario);
         } catch (DAOException ex) {
             throw new ValidacionDTOException (ex.getMessage());
@@ -134,7 +136,7 @@ public class UsuarioBO implements IUsuarioBO{
     @Override
     public UsuarioDTO anadirRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException{
         try {
-            usuarioDAO.anadirRecetaGuardada(new Receta(receta.getNombre()), new Usuario(usuario.getCorreo()));
+            usuarioDAO.anadirRecetaGuardada(recetaDTOAEntidad(receta), new Usuario(usuario.getCorreo()));
             return obtenerUsuario(usuario);
         } catch (DAOException ex) {
             throw new ValidacionDTOException (ex.getMessage());
@@ -147,11 +149,72 @@ public class UsuarioBO implements IUsuarioBO{
     @Override
     public UsuarioDTO eliminarRecetaGuardada(RecetaDTO receta, UsuarioDTO usuario) throws ValidacionDTOException{
         try {
-            usuarioDAO.eliminarRecetaGuardada(new Receta(receta.getNombre()), new Usuario(usuario.getCorreo()));
+            usuarioDAO.eliminarRecetaGuardada(recetaDTOAEntidad(receta), new Usuario(usuario.getCorreo()));
             return obtenerUsuario(usuario);
         } catch (DAOException ex) {
             throw new ValidacionDTOException (ex.getMessage());
         }
     }
+    
+    /**
+     * Metodo el cual convierte una recetaDTO a receta entidad.
+     * @param recetaDTO recetaDTO a convertir.
+     * @return receta entidad.
+     */
+    public Receta recetaDTOAEntidad(RecetaDTO recetaDTO) {
+        LinkedList<Paso> pasosEncontrados = new LinkedList<>();
+        LinkedList<Ingrediente> ingredientesEncontrados = new LinkedList<>();
+
+        for (PasoDTO pasoDTO : recetaDTO.getPasos()) {
+            pasosEncontrados.add(new Paso(pasoDTO.getNumero(), pasoDTO.getDescripcion()));
+        }
+
+        for (IngredienteDTO ingredienteDTO : recetaDTO.getIngredientes()) {
+            ingredientesEncontrados.add(new Ingrediente(ingredienteDTO.getNombre(), ingredienteDTO.getCantidad(), ingredienteDTO.getTipoCantidad()));
+        }
+
+        Receta receta = new Receta(
+                recetaDTO.getNombre(),
+                recetaDTO.getDuracion(),
+                recetaDTO.getTipo(),
+                pasosEncontrados,
+                ingredientesEncontrados
+        );
+        return receta;
+    }
+    
+//    /**
+//     * Metodo que se encarga de convertir una lista de recetasDTO a
+//     * recetas entidad.
+//     * @param recetasDTO lista de recetasDTO.
+//     * @return lista de recetas entidas.
+//     */
+//    public LinkedList<Receta> recetasDTOAEntidad(LinkedList<RecetaDTO> recetasDTO){
+//        LinkedList<Receta> recetasEncontradas = new LinkedList<>();
+//
+//            for (RecetaDTO recetaDTO : recetasDTO) {
+//                LinkedList<Paso> pasosEncontrados = new LinkedList<>();
+//                LinkedList<Ingrediente> ingredientesEncontrados = new LinkedList<>();
+//
+//                for (PasoDTO pasoDTO : recetaDTO.getPasos()) {
+//                    pasosEncontrados.add(new Paso(pasoDTO.getNumero(), pasoDTO.getDescripcion()));
+//                }
+//
+//                for (IngredienteDTO ingredienteDTO : recetaDTO.getIngredientes()) {
+//                    ingredientesEncontrados.add(new Ingrediente(ingredienteDTO.getNombre(), ingredienteDTO.getCantidad(), ingredienteDTO.getTipoCantidad()));
+//                }
+//
+//                Receta receta = new Receta(
+//                        recetaDTO.getNombre(),
+//                        recetaDTO.getDuracion(),
+//                        recetaDTO.getTipo(),
+//                        pasosEncontrados,
+//                        ingredientesEncontrados
+//                );
+//
+//                recetasEncontradas.add(receta);
+//            }
+//        return recetasEncontradas;
+//    }
 
 }
