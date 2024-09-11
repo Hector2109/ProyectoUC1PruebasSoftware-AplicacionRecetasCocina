@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.arquitecturasoftware.apprecetasc_bo_recetas;
 
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException;
 import org.itson.arquitecturasoftware.apprecetasc_dao_Exception.DAOException;
 import org.itson.arquitecturasoftware.apprecetasc_dao_recetas.RecetaDAO;
 import org.itson.arquitecturasoftware.apprecetasc_dto.IngredienteDTO;
@@ -16,6 +11,7 @@ import org.itson.arquitecturasoftware.apprecetasc_dto.UsuarioDTO;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Ingrediente;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Paso;
 import org.itson.arquitecturasoftware.apprecetasc_entidad.Receta;
+import org.itson.arquitecturasoftware.apprecetasc_entidad.Usuario;
 
 /**
  *
@@ -32,51 +28,165 @@ public class RecetaBO implements IRecetaBO{
        recetaDAO = new RecetaDAO();
    }
 
+    /**
+     * Método el cuál obtiene una receta
+     *
+     * @param receta receta a obtener
+     * @return receta
+     * @throws
+     * org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException
+     */
     @Override
-    public RecetaDTO obtenerReceta(RecetaDTO receta) {
+    public RecetaDTO obtenerReceta(RecetaDTO receta) throws ValidacionDTOException {
         Receta recetaEntidad = new Receta(
-            receta.getNombre(),
-            receta.getDuracion(),
-            receta.getTipo());
-        
+                receta.getNombre(),
+                receta.getDuracion(),
+                receta.getTipo());
+
         try {
-        Receta recetaObtenida = recetaDAO.obtenerReceta(recetaEntidad);
-        
-        LinkedList<PasoDTO> pasosEncontrados = new LinkedList<>();
-        for (Paso paso : recetaObtenida.getPasos()) {
-            pasosEncontrados.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
-        }
+            Receta recetaObtenida = recetaDAO.obtenerReceta(recetaEntidad);
 
-        LinkedList<IngredienteDTO> ingredientesEncontrados = new LinkedList<>();
-        for (Ingrediente ingrediente : recetaObtenida.getIngredientes()) {
-            ingredientesEncontrados.add(new IngredienteDTO(ingrediente.getNombre(), ingrediente.getCantidad(), ingrediente.getTipoCantidad()));
-        }
+            LinkedList<PasoDTO> pasosEncontrados = new LinkedList<>();
+            for (Paso paso : recetaObtenida.getPasos()) {
+                pasosEncontrados.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
+            }
 
-        RecetaDTO recetaCompletaDTO = new RecetaDTO(
-            recetaObtenida.getNombre(),
-            recetaObtenida.getDuracion(),
-            recetaObtenida.getTipo(),
-            pasosEncontrados,
-            ingredientesEncontrados
+            LinkedList<IngredienteDTO> ingredientesEncontrados = new LinkedList<>();
+            for (Ingrediente ingrediente : recetaObtenida.getIngredientes()) {
+                ingredientesEncontrados.add(new IngredienteDTO(ingrediente.getNombre(), ingrediente.getCantidad(), ingrediente.getTipoCantidad()));
+            }
+
+            RecetaDTO recetaCompletaDTO = new RecetaDTO(
+                    recetaObtenida.getNombre(),
+                    recetaObtenida.getDuracion(),
+                    recetaObtenida.getTipo(),
+                    pasosEncontrados,
+                    ingredientesEncontrados
+            );
+
+            return recetaCompletaDTO;
+
+        } catch (DAOException ex) {
+            throw new ValidacionDTOException("Error: No se pudo obtener la receta.");
+        }
+    }
+
+    /**
+     * Retorna las recetas guardadas de un usuario
+     *
+     * @param usuario usuario al que e le desea obtener las recetas
+     * @return lista de recetas guardadas por el usuario
+     * @throws
+     * org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException
+     */
+    @Override
+    public LinkedList<RecetaDTO> obtieneRecetasGuardadas(UsuarioDTO usuario) throws ValidacionDTOException {
+        Usuario user = new Usuario(
+                usuario.getCorreo(),
+                usuario.getContrasenia(),
+                usuario.getNombre()
         );
 
-        return recetaCompletaDTO;
+        LinkedList<RecetaDTO> recetasGuardadasDTO = new LinkedList<>();
 
-    } catch (DAOException ex) {
-        Logger.getLogger(RecetaBO.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    
-    return null;     
-    }
+        try {
+            
+            LinkedList<Receta> recetasGuardadas = recetaDAO.obtieneRecetasGuardadas(user);
+            for (Receta receta : recetasGuardadas) {
+                LinkedList<PasoDTO> pasosDTO = new LinkedList<>();
+                for (Paso paso : receta.getPasos()) {
+                    pasosDTO.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
+                }
 
+                LinkedList<IngredienteDTO> ingredientesDTO = new LinkedList<>();
+                for (Ingrediente ingrediente : receta.getIngredientes()) {
+                    ingredientesDTO.add(new IngredienteDTO(ingrediente.getNombre(), ingrediente.getCantidad(), ingrediente.getTipoCantidad()));
+                }
+
+                RecetaDTO recetaDTO = new RecetaDTO(
+                        receta.getNombre(),
+                        receta.getDuracion(),
+                        receta.getTipo(),
+                        pasosDTO,
+                        ingredientesDTO
+                );
+
+                recetasGuardadasDTO.add(recetaDTO);
+            }
+
+            return recetasGuardadasDTO;
+
+        } catch (DAOException ex) {
+            throw new ValidacionDTOException("No hay recetas guardadas.");
+        }
+    }
+     
+    /**
+     * Retorna las recetas favoritas de un usuario
+     *
+     * @param usuario usuario al que se le desea obtener recetas
+     * @return lista de recetas favoritas de usuario
+     * @throws org.itson.arquitecturasoftware.apprecetasc_bo_excepcionesDTO.ValidacionDTOException
+     */
     @Override
-    public LinkedList<RecetaDTO> obtieneRecetasGuardadas(UsuarioDTO usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public LinkedList<RecetaDTO> obtieneRecetasFav(UsuarioDTO usuario) throws ValidacionDTOException {
+        Usuario user = new Usuario(
+                usuario.getCorreo(),
+                usuario.getContrasenia(),
+                usuario.getNombre()
+        );
+
+        LinkedList<RecetaDTO> recetasFavDTO = new LinkedList<>();
+
+        try {
+            
+            LinkedList<Receta> recetasFav = recetaDAO.obtieneRecetasFav(user);
+            for (Receta receta : recetasFav) {
+                LinkedList<PasoDTO> pasosDTO = new LinkedList<>();
+                for (Paso paso : receta.getPasos()) {
+                    pasosDTO.add(new PasoDTO(paso.getNumero(), paso.getDescripcion()));
+                }
+
+                LinkedList<IngredienteDTO> ingredientesDTO = new LinkedList<>();
+                for (Ingrediente ingrediente : receta.getIngredientes()) {
+                    ingredientesDTO.add(new IngredienteDTO(ingrediente.getNombre(), ingrediente.getCantidad(), ingrediente.getTipoCantidad()));
+                }
+
+                RecetaDTO recetaDTO = new RecetaDTO(
+                        receta.getNombre(),
+                        receta.getDuracion(),
+                        receta.getTipo(),
+                        pasosDTO,
+                        ingredientesDTO
+                );
+
+                recetasFavDTO.add(recetaDTO);
+            }
+
+            return recetasFavDTO;
+
+        } catch (DAOException ex) {
+            throw new ValidacionDTOException("No hay recetas favoritas.");
+        }
     }
 
+    /**
+     * Retorna los pasos de una receta.
+     * 
+     * @param receta
+     * @return lista de los pasos de una receta
+     * @throws ValidacionDTOException 
+     */
     @Override
-    public LinkedList<RecetaDTO> obtieneRecetasFav(UsuarioDTO usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public LinkedList<PasoDTO> obtenerPasosDeReceta(RecetaDTO receta) throws ValidacionDTOException {
+        try {
+            LinkedList<PasoDTO> pasosReceta = obtenerReceta(receta).getPasos();
+
+            return pasosReceta;
+            
+        } catch (ValidacionDTOException ex) {
+            throw new ValidacionDTOException("No hay recetas favoritas.");
+        }
     }
-    
+      
 }
